@@ -5,7 +5,7 @@ import { defineConfig, fontProviders } from 'astro/config';
 export default defineConfig({
   /* Necesario para las URLs canónicas y para las imágenes de
      previsualización: las redes sociales exigen rutas absolutas. */
-  site: 'https://www.gabriela-marante.com',
+  site: 'https://gabriela-marante.com',
 
   fonts: [
     {
