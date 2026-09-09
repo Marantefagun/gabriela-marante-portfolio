@@ -1,0 +1,38 @@
+---
+/* Etiqueta de empresa: borde gris sobre fondo claro. No confundir con
+   Tag.astro, que es la etiqueta de proyecto (fondo azul, radio 4). */
+interface Props {
+  label: string;
+  /* "default" es el borde gris de las empresas (About); "brand" el
+     borde azul de los atajos a otros proyectos. */
+  variant?: 'default' | 'brand';
+}
+
+const { label, variant = 'default' } = Astro.props;
+---
+
+<span class:list={['chip', variant === 'brand' && 'chip--brand']}>{label}</span>
+
+<style>
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 12px;
+    border: 2px solid var(--chip-border, var(--color-border));
+    border-radius: var(--radius);
+    background-color: var(--chip-bg, transparent);
+    color: var(--chip-fg, var(--color-ink));
+    transition:
+      background-color var(--transition-state),
+      border-color var(--transition-state),
+      color var(--transition-state);
+    font-size: var(--text-body);
+    font-weight: var(--weight-medium);
+    white-space: nowrap;
+  }
+
+  .chip--brand {
+    --chip-border: var(--color-brand);
+  }
+</style>

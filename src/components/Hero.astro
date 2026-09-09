@@ -1,0 +1,54 @@
+---
+interface Props {
+  headline: string;
+  lead: string;
+}
+
+const { headline, lead } = Astro.props;
+---
+
+<header class="hero">
+  <div class="spot" data-spot>
+    <h1 class="hero__headline">{headline}</h1>
+    <p class="hero__headline spot__brillo" aria-hidden="true">{headline}</p>
+  </div>
+
+  <div class="spot" data-spot>
+    <p class="hero__lead">{lead}</p>
+    <p class="hero__lead spot__brillo" aria-hidden="true">{lead}</p>
+  </div>
+</header>
+
+<style>
+  .hero {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-hero);
+    min-height: var(--hero-min);
+  }
+
+  .hero__headline {
+    margin: 0;
+    color: var(--color-ink);
+    max-width: var(--hero-headline-max);
+    font-size: var(--text-display);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-default);
+  }
+
+  .hero__lead {
+    margin: 0;
+    color: var(--color-muted);
+    max-width: var(--hero-lead-max);
+    font-size: var(--text-lead);
+    font-weight: var(--weight-light);
+    line-height: var(--leading-lead);
+  }
+
+  /* El color del brillo se fija aquí, no en la utilidad global: los
+     estilos con ámbito del componente tienen el mismo peso y van
+     después, así que ganarían. */
+  .spot__brillo {
+    color: var(--color-spot);
+  }
+</style>

@@ -1,0 +1,65 @@
+---
+interface Props {
+  role: string;
+  email: string;
+  location: string;
+}
+
+const { role, email, location } = Astro.props;
+---
+
+<footer class="footer">
+  <p class="footer__role">{role}</p>
+
+  <div class="footer__row">
+    <a class="footer__email" href={`mailto:${email}`}>{email}</a>
+    <p class="footer__location">{location}</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-2);
+    border-radius: var(--radius);
+    background-color: var(--color-surface-dark);
+    color: var(--color-on-dark);
+  }
+
+  .footer__role {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-medium);
+    white-space: nowrap;
+  }
+
+  .footer__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    row-gap: var(--space-1);
+  }
+
+  .footer__email {
+    color: inherit;
+    font-size: var(--text-body);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .footer__email:hover,
+  .footer__email:focus-visible {
+    text-decoration: underline;
+  }
+
+  .footer__location {
+    margin: 0;
+    color: var(--color-muted-on-dark);
+    font-size: var(--text-body);
+    white-space: nowrap;
+  }
+</style>

@@ -1,0 +1,283 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+import SiteNav from '../../components/SiteNav.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import BackToTop from '../../components/BackToTop.astro';
+import OtherProjects from '../../components/project/OtherProjects.astro';
+
+import logoBubbla from '../../assets/projects/bubbla/logo-bubbla.webp';
+import logoOppo from '../../assets/projects/bubbla/logo-oppo.webp';
+import product from '../../assets/projects/bubbla/product.webp';
+import award from '../../assets/projects/bubbla/award.webp';
+
+const medio = '(min-width: 1200px) 660px, (min-width: 768px) calc(100vw - 80px), calc(100vw - 32px)';
+---
+
+<Layout
+  title="BUBBLA x OPPO — Gabriela Marante"
+  description="Diseño 3D para la pantalla exterior del OPPO Find N2 Flip. Premio Best Creative Design."
+  image="/og/bubbla-x-oppo.jpg"
+>
+  <div class="shell" id="top">
+    <SiteNav />
+
+    <main class="main">
+      {/* El título es un lockup de dos logotipos, no texto. El h1 va
+          oculto para que la página tenga encabezado real. */}
+      <h1 class="visually-hidden">BUBBLA × OPPO</h1>
+
+      <div class="lockup" aria-hidden="true">
+        <span class="lockup__mark lockup__mark--bubbla">
+          <Image src={logoBubbla} alt="" widths={[160, 320, 640]} sizes="160px" loading="eager" />
+        </span>
+        <svg class="lockup__cross" viewBox="0 0 14.172 17.7" fill="none">
+          <path
+            d="M5.868 7.668L5.832 10.236L0.144 0H3.684L7.8 8.112H6.372L10.452 0H14.004L8.352 10.236L8.328 7.668L14.172 17.7H10.62L6.312 9.78H7.86L3.54 17.7H0L5.868 7.668Z"
+            fill="currentColor"></path>
+        </svg>
+        <span class="lockup__mark lockup__mark--oppo">
+          <Image src={logoOppo} alt="" widths={[134, 268, 536]} sizes="134px" loading="eager" />
+        </span>
+      </div>
+
+      <section class="intro">
+        <p class="intro__text">
+          The “Bubbla” design uses 3D technology to make the OPPO Find N2 Flip’s cover screen display
+          dynamic, adaptable images based on your surroundings, plus useful info like the weather.
+        </p>
+        <div class="intro__media">
+          <Image
+            src={product}
+            alt="Móvil plegable OPPO Find N2 Flip mostrando el diseño Bubbla en la pantalla exterior."
+            widths={[400, 800, 1200]}
+            sizes={medio}
+          />
+        </div>
+      </section>
+
+      <section class="awards">
+        <h2 class="awards__title">Award winner</h2>
+        <p class="awards__text">
+          Winner of the Best Creative Design award at the OPPO Find N2 Flip Cover Screen Design
+          Awards.
+        </p>
+        <div class="awards__frame">
+          <Image
+            class="awards__image"
+            src={award}
+            alt="Diploma del premio Best Creative Design de OPPO."
+            widths={[400, 800, 1320]}
+            sizes={medio}
+          />
+        </div>
+      </section>
+
+      <OtherProjects current="bubbla-x-oppo" />
+    </main>
+
+    <div class="page__end">
+      <BackToTop />
+      <SiteFooter
+        role="Product Designer"
+        email="marante.g.fagun@gmail.com"
+        location="Based in Madrid, Spain."
+      />
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-band);
+  }
+
+  /* ---------- Lockup de logotipos ---------- */
+
+  .lockup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  /* Los logos vienen recortados del original: la caja fija el tamaño
+     visible y la imagen se posiciona dentro, como en el diseño. */
+  .lockup__mark {
+    position: relative;
+    display: block;
+    flex: none;
+    height: 26px;
+    overflow: hidden;
+  }
+
+  .lockup__mark :global(img) {
+    position: absolute;
+    top: -22.86%;
+    height: 145.71%;
+    max-width: none;
+  }
+
+  .lockup__mark--bubbla {
+    width: 116px;
+  }
+
+  .lockup__mark--bubbla :global(img) {
+    left: -0.28%;
+    width: 103.06%;
+  }
+
+  .lockup__mark--oppo {
+    width: 100px;
+  }
+
+  .lockup__mark--oppo :global(img) {
+    left: -3.86%;
+    width: 109.21%;
+  }
+
+  .lockup__cross {
+    flex: none;
+    width: 11.91px;
+    height: 14.88px;
+    color: var(--color-ink);
+  }
+
+  /* ---------- Presentación ---------- */
+
+  .intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-5);
+  }
+
+  .intro__text {
+    margin: 0;
+    color: var(--color-ink);
+    font-size: var(--text-md);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-default);
+  }
+
+  .intro__media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 499 / 562;
+    overflow: hidden;
+  }
+
+  .intro__media :global(img) {
+    position: absolute;
+    top: 0;
+    left: -29.35%;
+    width: 159.31%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+  }
+
+  /* ---------- Premio ---------- */
+
+  .awards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .awards__title {
+    margin: 0;
+    width: 100%;
+    color: var(--color-brand);
+    font-family: var(--font-display);
+    font-size: var(--text-section);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-default);
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .awards__text {
+    margin: 0;
+    color: var(--color-ink);
+    font-size: var(--text-md);
+    line-height: var(--leading-default);
+    text-align: center;
+  }
+
+  .awards__frame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .awards__image {
+    width: 100%;
+    height: auto;
+    border: 1px solid #d0d0d0;
+    box-shadow: 8px 9px 28.5px 5px rgb(0 0 0 / 0.15);
+  }
+
+  /* ============================================================
+     Tablet
+     ============================================================ */
+
+  @media (min-width: 768px) {
+    .lockup {
+      gap: 21px;
+    }
+
+    .lockup__mark {
+      height: 35px;
+    }
+
+    .lockup__mark--bubbla {
+      width: 160px;
+    }
+
+    .lockup__mark--oppo {
+      width: 134px;
+    }
+
+    .lockup__cross {
+      width: 14.172px;
+      height: 17.7px;
+    }
+
+    .intro {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+
+    .intro__text {
+      flex: 0 1 386px;
+    }
+
+    .intro__media {
+      flex: 0 1 499px;
+    }
+
+    .awards__text {
+      max-width: 585px;
+    }
+
+    .awards__frame {
+      padding: 19px 81px;
+    }
+
+    /* El diseño encaja el diploma en una caja algo más achatada que
+       su proporción natural, así que recorta. */
+    .awards__image {
+      width: auto;
+      max-width: 100%;
+      height: 645px;
+      aspect-ratio: 659.895 / 645;
+      object-fit: cover;
+    }
+  }
+</style>

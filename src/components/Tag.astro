@@ -1,0 +1,30 @@
+---
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+
+<span class="tag">{label}</span>
+
+<style>
+  .tag {
+    align-self: flex-start;
+    padding: var(--space-1);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-tag);
+    background-color: var(--color-brand);
+    color: var(--color-on-dark);
+    font-size: var(--text-body);
+    font-weight: var(--weight-regular);
+    white-space: nowrap;
+  }
+
+  /* En el frame de escritorio las etiquetas están ocultas. */
+  @media (min-width: 1200px) {
+    .tag {
+      display: none;
+    }
+  }
+</style>

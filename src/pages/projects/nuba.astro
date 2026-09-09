@@ -1,0 +1,627 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+import SiteNav from '../../components/SiteNav.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import BackToTop from '../../components/BackToTop.astro';
+import StatCard from '../../components/project/StatCard.astro';
+import StepTitle from '../../components/project/StepTitle.astro';
+import OtherProjects from '../../components/project/OtherProjects.astro';
+
+import hero from '../../assets/projects/nuba/hero.png';
+import research from '../../assets/projects/nuba/research.webp';
+import forPatient from '../../assets/projects/nuba/patient.webp';
+import forDoctor from '../../assets/projects/nuba/doctor.webp';
+import step1 from '../../assets/projects/nuba/step-1.webp';
+import step2 from '../../assets/projects/nuba/step-2.webp';
+import step3 from '../../assets/projects/nuba/step-3.webp';
+import step4 from '../../assets/projects/nuba/step-4.webp';
+import clip from '../../assets/projects/nuba/clip.webp';
+import storage from '../../assets/projects/nuba/storage.webp';
+
+const ancho = '(min-width: 768px) calc(100vw - 80px), calc(100vw - 32px)';
+const medio = '(min-width: 1200px) 600px, (min-width: 768px) calc(100vw - 80px), calc(100vw - 32px)';
+
+const paraPaciente = [
+  'Patients can review the full conversation after their appointment.',
+  'Their concerns and symptoms are less likely to be overlooked.',
+  'Medical instructions are clearly documented for future reference.',
+  'The appointment feels more personal and attentive, enhancing trust and comfort.',
+];
+
+const paraMedico = [
+  'Reduces admin work — no need to write or transcribe during consultations.',
+  'Speeds up access to key patient data.',
+  'Uses collected information to identify patterns.',
+  'Streamlines information flow for faster, smarter care.',
+];
+---
+
+<Layout
+  title="Nuba — Gabriela Marante"
+  description="Servicio de asistencia y transcripción para consultas de atención primaria, para que el médico atienda y no teclee."
+  image="/og/nuba.jpg"
+>
+  <div class="shell" id="top">
+    <SiteNav />
+
+    <main class="main">
+      <header class="intro">
+        <div class="intro__heading">
+          <h1 class="intro__title">Nuba</h1>
+          <p class="intro__subtitle">
+            An assistance and transcription service for primary care medical consultations
+          </p>
+        </div>
+        <Image
+          class="figure"
+          src={hero}
+          alt="Consulta de atención primaria con Nuba en pantalla."
+          widths={[400, 800, 1600, 2400]}
+          sizes={ancho}
+          loading="eager"
+        />
+      </header>
+
+      <section class="section">
+        <h2 class="section__title">Why UX in healthcare?</h2>
+        <p class="prose prose--why">
+          <span
+            >Healthcare brings unique challenges, with a wide range of users — from patients of all
+            ages and conditions to professionals with diverse expertise.</span
+          >{' '}<span class="prose__soft"
+            >Given this complexity, we focused on improving the foundation of the healthcare
+            system.</span
+          >
+        </p>
+      </section>
+
+      <section class="section section--end">
+        <h2 class="section__title section__title--care">Why primary care?</h2>
+        <p class="prose prose--care">
+          <span
+            >Primary care professionals face high demands and frequent frustrations, impacting their
+            well-being and patient care, especially as healthcare evolves post-COVID and with new
+            technologies.</span
+          >{' '}<span class="prose__soft"
+            >To address these challenges, we analyzed the experiences of both patients and doctors,
+            focusing on emotional and mental health needs during consultations.</span
+          >
+        </p>
+      </section>
+
+      <div class="stats">
+        <StatCard label="PC doctors that face burnout in the workplace in Spain are" figure="up to 52%." />
+        <StatCard label="1 in 4 doctors see" figure="40 patients a day." tone="gradient" />
+        <StatCard
+          label="Percentage of patients that assertively communicate their symptoms are"
+          figure="only 10%."
+        />
+      </div>
+
+      <Image
+        class="figure figure--round"
+        src={research}
+        alt="Material de la investigación con pacientes y profesionales."
+        widths={[400, 800, 1600, 2400]}
+        sizes={ancho}
+      />
+
+      <aside class="hmw">
+        <p>
+          <span
+            >How might we help primary care doctors, who spend a lot of time on administrative
+            tasks,</span
+          >{' '}<span class="hmw__accent">dedicate more of their attention to patient care?</span>
+        </p>
+      </aside>
+
+      <section class="section">
+        <h2 class="section__title">Value proposition</h2>
+        <div class="value">
+          <div class="value__column">
+            <Image
+              class="figure figure--round"
+              src={forPatient}
+              alt="Paciente consultando su informe de la visita."
+              widths={[400, 800, 1200]}
+              sizes={medio}
+            />
+            <div class="value__group">
+              <h3 class="value__title">For the patient</h3>
+              <ol class="benefits benefits--patient">
+                {paraPaciente.map((t) => <li>{t}</li>)}
+              </ol>
+            </div>
+          </div>
+
+          <div class="value__column">
+            <Image
+              class="figure figure--round"
+              src={forDoctor}
+              alt="Médica de atención primaria durante una consulta."
+              widths={[400, 800, 1200]}
+              sizes={medio}
+            />
+            <div class="value__group">
+              <h3 class="value__title">For the doctor</h3>
+              <ol class="benefits benefits--doctor">
+                {paraMedico.map((t) => <li>{t}</li>)}
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section solution">
+        <div class="solution__intro">
+          <h2 class="section__title">Solution</h2>
+          <p class="prose">
+            Nuba is an assistance and transcription service for primary care medical consultations.
+            How does it work?:
+          </p>
+        </div>
+
+        <div class="flow">
+          <StepTitle step={1} title="Welcome to Nuba’s Home, click on button to record session." />
+          <div class="shot">
+            <Image
+              class="shot__image"
+              src={step1}
+              alt="Pantalla de inicio de Nuba con el botón de grabar."
+              widths={[400, 800, 1600]}
+              sizes={medio}
+            />
+          </div>
+        </div>
+
+        <div class="flow flow--end">
+          <StepTitle step={2} title="Recording ongoing, click to stop & save." />
+          <div class="shot">
+            <Image
+              class="shot__image"
+              src={step2}
+              alt="Grabación en curso, con el botón para detener y guardar."
+              widths={[400, 800, 1600]}
+              sizes={medio}
+            />
+          </div>
+          <p class="prose prose--flow">
+            <span
+              >During the conversation, Nuba’s system transcribes and extracts relevant information
+              for both the doctor and the patient.</span
+            >{' '}<span class="prose__soft"
+              >This information is then reviewed by the doctor before the report is given to the
+              patient.</span
+            >
+          </p>
+        </div>
+
+        <div class="flow">
+          <StepTitle step={3} title="Recording & transcript saved. Click continue to see report." />
+          <div class="shot">
+            <Image
+              class="shot__image"
+              src={step3}
+              alt="Grabación y transcripción guardadas, con el botón de continuar."
+              widths={[400, 800, 1600]}
+              sizes={medio}
+            />
+          </div>
+        </div>
+
+        <div class="flow flow--end">
+          <StepTitle step={4} title="Summary information." />
+          <div class="shot">
+            <Image
+              class="shot__image"
+              src={step4}
+              alt="Informe resumen de la consulta generado por Nuba."
+              widths={[400, 800, 1600]}
+              sizes={medio}
+            />
+          </div>
+          <ul class="prose prose--flow prose__soft summary">
+            <li>Symptoms</li>
+            <li>Diagnosis</li>
+            <li>Treatment</li>
+            <li>Medication</li>
+            <li>Recommendations</li>
+            <li>Next steps for the patient</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 class="section__title">For the patient — Nuba clip</h2>
+        <Image
+          class="figure figure--round"
+          src={clip}
+          alt="Informe impreso que el paciente se lleva a casa."
+          widths={[400, 800, 1600, 2400]}
+          sizes={ancho}
+        />
+        <p class="prose prose--clip">
+          <span
+            >The goal of this report is to condense and transform all information discussed during
+            the consultation into a clear, well-structured format for the patient to take home.</span
+          >{' '}<span class="prose__soft"
+            >This ensures that each patient receives an accurate summary that effectively
+            communicates the most relevant details from their visit.</span
+          >
+        </p>
+      </section>
+
+      <section class="section">
+        <h2 class="section__title">Data storage &amp; management</h2>
+        <Image
+          class="figure figure--round"
+          src={storage}
+          alt="Panel de gestión y almacenamiento de datos de las consultas."
+          widths={[400, 800, 1600, 2400]}
+          sizes={ancho}
+        />
+        <div class="prose prose--storage">
+          <p>
+            Nuba compiles and organizes key data from every consultation, automatically transcribing
+            and extracting relevant information for both doctors and patients.
+          </p>
+          <p class="prose__soft">
+            This streamlined process not only saves time but also ensures that critical insights are
+            easily accessible and securely stored. As a result, Nuba enhances decision-making and
+            supports better patient care through comprehensive, real-time data management.
+          </p>
+        </div>
+      </section>
+
+      <p class="credits">*Credits to Nuria Berruezo for being my partner in this project.</p>
+
+      <OtherProjects current="nuba" />
+    </main>
+
+    <div class="page__end">
+      <BackToTop />
+      <SiteFooter
+        role="Product Designer"
+        email="marante.g.fagun@gmail.com"
+        location="Based in Madrid, Spain."
+      />
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-band);
+  }
+
+  /* ---------- Portada ---------- */
+
+  .intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .intro__heading {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .intro__title {
+    margin: 0;
+    color: var(--color-ink);
+    font-size: var(--text-title);
+    font-weight: var(--weight-regular);
+    line-height: 1.2;
+  }
+
+  .intro__subtitle {
+    margin: 0;
+    color: var(--color-ink);
+    font-size: var(--text-lead);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-default);
+  }
+
+  /* ---------- Secciones ---------- */
+
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .section--end {
+    align-items: flex-end;
+  }
+
+  .section__title {
+    margin: 0;
+    color: var(--color-brand);
+    font-family: var(--font-display);
+    font-size: var(--text-section);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-default);
+    text-transform: uppercase;
+  }
+
+  .prose {
+    margin: 0;
+    color: var(--color-ink);
+    font-size: var(--text-lead);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-default);
+  }
+
+  .prose__soft {
+    color: var(--color-muted);
+  }
+
+  .prose :global(p) {
+    margin: 0;
+  }
+
+  .prose :global(p + p) {
+    margin-top: 1.25em;
+    margin-top: 1lh;
+  }
+
+  .figure {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+  }
+
+  .credits {
+    margin: 0;
+    color: var(--color-ink);
+    font-size: var(--text-body);
+    line-height: var(--leading-default);
+  }
+
+  /* ---------- Tarjetas de dato ---------- */
+
+  .stats {
+    container-type: inline-size;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: var(--space-3);
+
+    /* Nuba usa otro degradado que Serina. */
+    --stat-gradient: linear-gradient(
+      -40.49deg,
+      rgb(250 250 250) 6.74%,
+      rgb(206 199 250) 125.61%
+    );
+  }
+
+  .stats > :global(*) {
+    flex: 1 1 100%;
+  }
+
+  /* ---------- Pregunta destacada ---------- */
+
+  .hmw {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-3);
+    border-radius: var(--radius-lg);
+    background-color: #f3f2f2;
+  }
+
+  .hmw p {
+    max-width: 879px;
+    margin: 0;
+    color: var(--color-ink);
+    font-size: var(--text-lead);
+    line-height: var(--leading-default);
+    text-align: center;
+  }
+
+  .hmw__accent {
+    color: var(--color-brand);
+    font-weight: var(--weight-medium);
+  }
+
+  /* ---------- Propuesta de valor ---------- */
+
+  .value {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .value__column {
+    display: flex;
+    flex: 1 1 0;
+    min-width: 0;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .value__group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .value__title {
+    margin: 0;
+    color: var(--color-ink);
+    font-size: var(--text-lead);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-default);
+  }
+
+  /* La numeración sale de un contador, no de un span vacío. */
+  .benefits {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: beneficio;
+  }
+
+  .benefits li {
+    display: flex;
+    gap: var(--space-3);
+    align-items: flex-start;
+    padding: var(--space-2) var(--space-3);
+    border: 1px dashed rgb(62 29 255 / 0.3);
+    border-radius: var(--radius-lg);
+    color: var(--color-ink);
+    font-size: var(--text-lead);
+    line-height: var(--leading-default);
+    counter-increment: beneficio;
+  }
+
+  .benefits li::before {
+    content: counter(beneficio);
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: var(--size-step);
+    height: var(--size-step);
+    border: 1px solid #cecece;
+    border-radius: 50%;
+    background-color: rgb(255 255 255 / 0.81);
+    font-size: var(--text-body);
+    font-weight: var(--weight-semibold);
+  }
+
+  .benefits--patient li {
+    background-color: #eaebef;
+  }
+
+  .benefits--doctor li {
+    background-color: #f8f8f8;
+  }
+
+  /* ---------- Solución ---------- */
+
+  .solution {
+    gap: var(--space-3);
+  }
+
+  .solution__intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  /* Los pasos 2 y 4 se alinean a la derecha en el diseño. */
+  .flow--end {
+    align-items: flex-end;
+  }
+
+  /* Las capturas van sobre un fondo gris claro, como en el diseño. */
+  .shot {
+    width: 100%;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    background-color: #f5f5f5;
+  }
+
+  .shot__image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .summary {
+    padding-left: 1.5em;
+    list-style: disc;
+  }
+
+  .summary li {
+    margin: 0;
+  }
+
+  /* ============================================================
+     Tablet
+     ============================================================ */
+
+  @media (min-width: 768px) {
+    .section,
+    .intro,
+    .solution__intro {
+      gap: var(--space-4);
+    }
+
+    .solution {
+      gap: 48px;
+    }
+
+    .flow {
+      gap: var(--space-4);
+    }
+
+    .value {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+
+    .hmw {
+      padding: var(--space-3);
+    }
+  }
+
+  /* ============================================================
+     Escritorio
+     ============================================================ */
+
+  @media (min-width: 1200px) {
+    /* Medidas de línea del frame de escritorio. */
+    .prose--why {
+      max-width: 793px;
+    }
+
+    .prose--care,
+    .section__title--care {
+      max-width: 816px;
+    }
+
+    .prose--flow {
+      max-width: 735px;
+    }
+
+    .prose--clip {
+      max-width: 890px;
+    }
+
+    .prose--storage {
+      max-width: 993px;
+    }
+
+    .solution__intro {
+      max-width: 743px;
+    }
+
+    /* Dos por fila y la tercera envuelve a la derecha: es la
+       composición 2 + 1 del diseño. La proporción fija el alto en los
+       325px del frame sin clavar un número suelto. */
+    .stats > :global(*) {
+      flex: 0 0 400.412px;
+      aspect-ratio: 400.412 / 325.026;
+    }
+
+    .shot {
+      width: 735px;
+    }
+  }
+</style>

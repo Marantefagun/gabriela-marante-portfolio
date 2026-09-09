@@ -1,0 +1,814 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+import SiteNav from '../../components/SiteNav.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import BackToTop from '../../components/BackToTop.astro';
+import ProcessCard from '../../components/project/ProcessCard.astro';
+import StepTitle from '../../components/project/StepTitle.astro';
+import OtherProjects from '../../components/project/OtherProjects.astro';
+
+import hero from '../../assets/projects/ai-metrics/hero.webp';
+import problem from '../../assets/projects/ai-metrics/problem.webp';
+import panel from '../../assets/projects/ai-metrics/panel.webp';
+import access from '../../assets/projects/ai-metrics/access.webp';
+import createNl from '../../assets/projects/ai-metrics/create-nl.webp';
+import validation from '../../assets/projects/ai-metrics/validation.webp';
+
+const anchoCompleto = '(min-width: 768px) calc(100vw - 80px), calc(100vw - 32px)';
+---
+
+<Layout
+  title="AI for Creating Metrics — Gabriela Marante"
+  description="Un asistente de IA que guía a usuarios no técnicos hasta la métrica que necesitan, sin escribir una sola consulta."
+  image="/og/ai-for-creating-metrics.jpg"
+>
+  <div class="shell" id="top">
+    <SiteNav />
+
+    <main class="main">
+      <header class="intro">
+        <h1 class="intro__title">AI for Creating Metrics</h1>
+        <Image
+          class="intro__image"
+          src={hero}
+          alt="Portátil mostrando el panel de métricas de Graphext."
+          widths={[400, 800, 1600, 2400]}
+          sizes={anchoCompleto}
+          loading="eager"
+        />
+      </header>
+
+      <section class="section">
+        <h2 class="section__title">The Problem</h2>
+        <div class="problem">
+          <p class="prose">
+            <span
+              >Business clients often struggled to generate meaningful metrics because they didn’t
+              always know what to look for in their data.</span
+            >{' '}<span class="prose__soft"
+              >This lack of direction made it difficult to define and create the metrics that would
+              unlock valuable insights, leading to frustration and limiting the value they could
+              extract from the platform.</span
+            >
+          </p>
+          <Image
+            class="problem__diagram"
+            src={problem}
+            alt="Diagrama del recorrido del cliente al intentar crear métricas."
+            widths={[400, 800, 1600, 2400]}
+            sizes={anchoCompleto}
+          />
+        </div>
+      </section>
+
+      <section class="section section--narrow">
+        <h2 class="section__title">My role</h2>
+        <p class="prose">
+          <span
+            >As Product Designer, I worked with development and business teams to create an
+            AI-powered, no-code interaction</span
+          >{' '}<span class="prose__soft"
+            >that guides users — especially those unsure where to start — by suggesting relevant
+            metrics based on their data.</span
+          >
+        </p>
+      </section>
+
+      <section class="section">
+        <h2 class="section__title">Design process</h2>
+
+        <div class="process" data-proceso>
+          <svg class="process__ellipse" viewBox="0 0 596 595" fill="none" aria-hidden="true">
+            <ellipse
+              cx="298"
+              cy="297.5"
+              rx="278"
+              ry="277.5"
+              stroke="url(#trazo)"
+              stroke-width="40"
+              stroke-dasharray="8 8"></ellipse>
+            <defs>
+              <linearGradient
+                id="trazo"
+                x1="100.449"
+                y1="92.5531"
+                x2="502.283"
+                y2="493.869"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stop-color="#FF581B" stop-opacity="0.37"></stop>
+                <stop offset="1" stop-color="#B5C1FF" stop-opacity="0.22"></stop>
+              </linearGradient>
+            </defs>
+          </svg>
+
+          <ol class="process__list">
+          <li class="process__item process__item--1">
+            <ProcessCard step={1} title="Briefing analysis" tone="warm">
+              <p>
+                User research revealed that the biggest challenge was users’ uncertainty about which
+                metrics to create or how to start their analysis.
+              </p>
+            </ProcessCard>
+          </li>
+          <li class="process__item process__item--2">
+            <ProcessCard step={2} title="Ideation" tone="dark">
+              <p>
+                Based on the feedback, I brainstormed several flows that would allow an AI assistant
+                to guide users from a point of uncertainty to concrete, valuable insights.
+              </p>
+            </ProcessCard>
+          </li>
+          <li class="process__item process__item--3">
+            <ProcessCard step={3} title="Prototype & Validation" tone="cool">
+              <p>
+                I made metric creation easily accessible by placing the entry point prominently on
+                the dataset’s Home page.
+              </p>
+              <p>
+                In designing the AI-assisted flow, I ensured users could still create manual metrics
+                with full functionality.
+              </p>
+            </ProcessCard>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+      <section class="section solution">
+        <div class="solution__intro">
+          <h2 class="section__title">Solution</h2>
+          <div class="prose">
+            <p>
+              <span
+                >The final design introduced an AI-powered assistant integrated into the metric
+                creation flow.</span
+              >{' '}<span class="prose__soft"
+                >Users could describe the metric they were interested in (e.g., “What are the average
+                sales by region?”), and the AI would:</span
+              >
+            </p>
+            <ol>
+              <li>Open metrics panel,</li>
+              <li>Parse a request,</li>
+              <li>Suggest an appropriate metric formula + display a visual preview of the result,</li>
+            </ol>
+            <p class="prose__soft">
+              *Users can refine or adjust their request using natural language.
+            </p>
+          </div>
+        </div>
+
+        <div class="step">
+          <StepTitle step={1} title="Access to metrics" />
+          <ul class="notes">
+            <li>Sidebar access for better visibility</li>
+          </ul>
+          <div class="access">
+            <div class="access__panel">
+              <Image
+                class="access__panel-image"
+                src={panel}
+                alt="Panel lateral de métricas dentro de Graphext."
+                widths={[300, 600, 900]}
+                sizes="(min-width: 1200px) 423px, (min-width: 768px) 300px, calc(100vw - 32px)"
+              />
+            </div>
+            <Image
+              class="access__wide"
+              src={access}
+              alt="Vista del conjunto de datos con el acceso a métricas destacado."
+              widths={[400, 800, 1600]}
+              sizes="(min-width: 768px) calc(100vw - 80px), calc(100vw - 32px)"
+            />
+          </div>
+        </div>
+
+        <div class="step">
+          <StepTitle step={2} title="Create a new metric with NL" />
+
+          <div class="define">
+            <div class="define__inner">
+              <p class="define__label">
+                <span class="define__icon" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" fill="none">
+                    <path
+                      d="M4.5 10C4.5 10.2822 4.6777 10.6621 5.00781 10.9922C5.33793 11.3223 5.71784 11.5 6 11.5V12.5C5.71784 12.5 5.33793 12.6777 5.00781 13.0078C4.6777 13.3379 4.5 13.7178 4.5 14H3.5C3.5 13.7178 3.3223 13.3379 2.99219 13.0078C2.66207 12.6777 2.28216 12.5 2 12.5V11.5C2.28216 11.5 2.66207 11.3223 2.99219 10.9922C3.3223 10.6621 3.5 10.2822 3.5 10H4.5ZM9.5 2C9.5 3.10457 10.3954 4 11.5 4V5C10.3954 5 9.5 5.89543 9.5 7H8.5C8.5 5.89543 7.60457 5 6.5 5V4C7.60457 4 8.5 3.10457 8.5 2H9.5Z"
+                      fill="currentColor"></path>
+                  </svg>
+                </span>
+                Define calculation with prompt:
+              </p>
+
+              <div class="prompt">
+                <p class="prompt__text">
+                  Which metric best shows how well my predictive models match real customer behavior?
+                </p>
+                <div class="prompt__buttons" aria-hidden="true">
+                  <span class="prompt__button"></span>
+                  <span class="prompt__button prompt__button--primary"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="framed">
+            <Image
+              class="framed__image"
+              src={createNl}
+              alt="Asistente de IA proponiendo una fórmula de métrica a partir de una pregunta."
+              widths={[400, 800, 1600, 2400]}
+              sizes={anchoCompleto}
+            />
+          </div>
+        </div>
+
+        <div class="step">
+          <StepTitle step={3} title="Validate calculation" />
+          <Image
+            class="step__image"
+            src={validation}
+            alt="Pantalla de validación de la métrica generada, con su fórmula y vista previa."
+            widths={[400, 800, 1600, 2400]}
+            sizes={anchoCompleto}
+          />
+          <div class="prose">
+            <p class="prose__soft">Key design decisions included:</p>
+            <ul>
+              <li>
+                Conversational UI<span class="prose__soft">
+                  to create a more approachable and less intimidating experience.</span
+                >
+              </li>
+              <li>
+                Inline explanations<span class="prose__soft">
+                  to clearly show how the AI generated the metric.</span
+                >
+              </li>
+              <li>
+                <span class="prose__soft">The option for </span>advanced users to manually adjust the
+                formula<span class="prose__soft"> if desired.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--narrow">
+        <h2 class="section__title">Impact</h2>
+        <p class="prose">
+          <span
+            >User feedback showed increased confidence in data exploration, thanks to AI guidance
+            when users were unsure where to start.</span
+          >{' '}<span class="prose__soft"
+            >Fewer support tickets about metric creation indicated the feature effectively solved a
+            major pain point, helping Graphext empower non-technical users to extract valuable
+            insights independently.</span
+          >
+        </p>
+      </section>
+
+      <OtherProjects current="ai-for-creating-metrics" />
+    </main>
+
+    <div class="page__end">
+      <BackToTop />
+      <SiteFooter
+        role="Product Designer"
+        email="marante.g.fagun@gmail.com"
+        location="Based in Madrid, Spain."
+      />
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-band);
+  }
+
+  /* ---------- Portada ---------- */
+
+  .intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .intro__title {
+    margin: 0;
+    color: var(--color-ink);
+    font-size: var(--text-title);
+    font-weight: var(--weight-regular);
+    line-height: 1.2;
+  }
+
+  .intro__image {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+  }
+
+  /* ---------- Secciones ---------- */
+
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .section__title {
+    margin: 0;
+    color: var(--color-brand);
+    font-family: var(--font-display);
+    font-size: var(--text-section);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-default);
+    text-transform: uppercase;
+  }
+
+  .prose {
+    margin: 0;
+    color: var(--color-ink);
+    font-size: var(--text-lead);
+    font-weight: var(--weight-light);
+    line-height: var(--leading-default);
+  }
+
+  /* Los diseños alternan tramos en negro y en gris dentro del mismo
+     párrafo para dar énfasis a la primera frase. */
+  .prose__soft {
+    color: var(--color-muted);
+  }
+
+  .prose :global(p) {
+    margin: 0;
+  }
+
+  .prose :global(p + p),
+  .prose :global(ol),
+  .prose :global(ul) {
+    margin-top: 1.25em;
+    margin-top: 1lh;
+  }
+
+  .prose :global(ol),
+  .prose :global(ul) {
+    margin-bottom: 0;
+    padding-left: 1.5em;
+  }
+
+  .problem {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .problem__diagram {
+    width: 100%;
+    height: auto;
+  }
+
+  /* ---------- Diagrama del proceso ---------- */
+
+  .process__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .process__ellipse {
+    display: none;
+  }
+
+  /* El anillo va al fondo: ahora precede a la lista en el DOM y además
+     lleva z-index explícito, para que el realce del hover no lo suba
+     por delante de las tarjetas. */
+  .process__item {
+    z-index: 1;
+  }
+
+  /* ---------- Microinteracción ----------
+
+     El diagrama describe una secuencia, así que las tarjetas entran en
+     su orden numerado. El estado inicial solo existe si el JS marca el
+     contenedor: sin JS se ve todo desde el principio. */
+
+  .process__item,
+  .process__ellipse {
+    transition:
+      opacity 500ms ease,
+      translate 500ms ease,
+      transform var(--transition-state);
+  }
+
+  .process[data-listo] .process__item,
+  .process[data-listo] .process__ellipse {
+    opacity: 0;
+    translate: 0 16px;
+  }
+
+  .process[data-listo].is-visible .process__item,
+  .process[data-listo].is-visible .process__ellipse {
+    opacity: 1;
+    translate: none;
+  }
+
+  .process[data-listo].is-visible .process__item--1 {
+    transition-delay: 100ms;
+  }
+
+  .process[data-listo].is-visible .process__item--2 {
+    transition-delay: 220ms;
+  }
+
+  .process[data-listo].is-visible .process__item--3 {
+    transition-delay: 340ms;
+  }
+
+  /* El anillo gira despacio. Se anima la elipse de dentro, no el SVG
+     entero: así el degradado se queda quieto y solo viajan los puntos.
+     Girando el SVG completo, el naranja daría la vuelta y dejaría de
+     ser sutil. 90s por vuelta son 4 grados por segundo: se percibe si
+     te paras a mirarlo y no molesta si no. */
+  @keyframes girar-anillo {
+    to {
+      rotate: 360deg;
+    }
+  }
+
+  .process__ellipse ellipse {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: girar-anillo 90s linear infinite;
+  }
+
+  /* Realce al pasar por encima. Solo donde hay ratón de verdad. */
+  @media (hover: hover) {
+    .process__item:hover {
+      z-index: 2;
+      transform: translateY(-6px);
+    }
+  }
+
+  /* Con movimiento reducido queda el contenido, sin el viaje. */
+  @media (prefers-reduced-motion: reduce) {
+    .process[data-listo] .process__item,
+    .process[data-listo] .process__ellipse {
+      opacity: 1;
+      translate: none;
+    }
+
+    .process__item:hover {
+      transform: none;
+    }
+
+    .process__ellipse ellipse {
+      animation: none;
+    }
+  }
+
+  /* ---------- Solución ---------- */
+
+  .solution {
+    gap: 3.75rem;
+  }
+
+  .solution__intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .step {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .step__image,
+  .access__wide,
+  .framed__image {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+  }
+
+  .notes {
+    margin: 0;
+    padding-left: 1.5em;
+    color: var(--color-ink-soft);
+    font-size: var(--text-body);
+  }
+
+  /* El panel lateral solo aparece a partir de tablet: en móvil el
+     diseño lo oculta y deja únicamente la vista ancha. */
+  .access__panel {
+    display: none;
+  }
+
+  .access {
+    display: flex;
+    gap: var(--space-3);
+    align-items: flex-end;
+  }
+
+  /* ---------- Maqueta de la interfaz de Graphext ----------
+     Estos colores reproducen el producto de Graphext dentro del caso
+     de estudio. No son tokens del portfolio y por eso viven aquí. */
+
+  .define {
+    display: none;
+  }
+
+  .define__label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    margin: 0;
+    color: #878787;
+    font-size: 12px;
+    line-height: 14px;
+  }
+
+  .define__icon {
+    display: block;
+    width: 16px;
+    height: 16px;
+  }
+
+  .define__icon svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .prompt {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--space-1);
+    padding: var(--space-1);
+    border: 1px solid #363b47;
+    border-radius: var(--radius-lg);
+    background-color: #313641;
+  }
+
+  .prompt__text {
+    margin: 0;
+    color: var(--color-on-dark);
+    font-size: var(--text-body);
+    line-height: 19px;
+  }
+
+  .prompt__buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-1);
+  }
+
+  .prompt__button {
+    width: 20px;
+    height: 20px;
+    border-radius: var(--radius-lg);
+    background-color: #3f4552;
+  }
+
+  .prompt__button--primary {
+    background-color: #0091e4;
+  }
+
+  .framed {
+    width: 100%;
+  }
+
+  /* ============================================================
+     Tablet
+     ============================================================ */
+
+  @media (min-width: 768px) {
+    .section {
+      gap: var(--space-4);
+    }
+
+    .problem {
+      gap: 124px;
+    }
+
+    .solution {
+      gap: var(--space-section);
+    }
+
+    .step {
+      gap: var(--space-3);
+    }
+
+    /* A partir de tablet la nota baja por debajo de las imágenes. */
+    .notes {
+      order: 1;
+    }
+
+    /* Las tres tarjetas se colocan alrededor de la elipse. Las
+       proporciones salen del frame: 720 x 784. */
+    .process {
+      position: relative;
+      width: 100%;
+      max-width: 720px;
+      margin-inline: auto;
+      aspect-ratio: 720 / 784;
+    }
+
+    /* Las tarjetas se posicionan contra .process, no contra la lista. */
+    .process__list {
+      display: block;
+    }
+
+    .process__item {
+      position: absolute;
+      width: 39.45%;
+    }
+
+    .process__item--1 {
+      top: 11.99%;
+      left: 0;
+    }
+
+    .process__item--2 {
+      top: 60.46%;
+      left: 31.04%;
+    }
+
+    .process__item--3 {
+      top: 3.19%;
+      left: 58.7%;
+      width: 41.3%;
+    }
+
+    .process__ellipse {
+      position: absolute;
+      z-index: 0;
+      top: 17.4%;
+      left: 17.36%;
+      display: block;
+      width: 66.39%;
+      height: 60.97%;
+      overflow: visible;
+    }
+
+    .access__panel {
+      display: block;
+      flex: none;
+      width: 300px;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      background-color: #f2f2f2;
+      border: 1px solid #e9e9e9;
+    }
+
+    .access__panel-image {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .access__wide {
+      flex: 1 1 0;
+      min-width: 0;
+      border-radius: var(--radius-xl);
+      border: 1px solid #e9e9e9;
+    }
+
+    .define {
+      display: block;
+      padding: 42px 42px 42px 91px;
+      border: 1px solid #e9e9e9;
+      border-radius: var(--radius-xl);
+      background-color: #f2f2f2;
+    }
+
+    .define__inner {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+      max-width: 550px;
+    }
+
+    .prompt {
+      height: 71px;
+    }
+
+    .framed {
+      padding: 96px 0 0 102px;
+      border: 1px solid #e9e9e9;
+      border-radius: var(--radius-xl);
+      background-color: #f2f2f2;
+    }
+
+    .framed__image {
+      border-top: 20px solid #070707;
+      border-left: 20px solid #070707;
+      border-radius: var(--radius-lg) 0 var(--radius-xl) 0;
+    }
+  }
+
+  /* ============================================================
+     Escritorio
+     ============================================================ */
+
+  @media (min-width: 1200px) {
+    /* Medidas de línea del frame de escritorio. */
+    .section--narrow {
+      max-width: 753px;
+    }
+
+    .problem .prose {
+      max-width: 904px;
+    }
+
+    .solution__intro .prose {
+      max-width: 916px;
+    }
+
+    /* Otra geometría para la elipse: 836 x 769. */
+    .process {
+      max-width: 836px;
+      aspect-ratio: 836 / 769;
+    }
+
+    .process__item {
+      width: 40.19%;
+    }
+
+    .process__item--1 {
+      top: 8.97%;
+      left: 0;
+    }
+
+    .process__item--2 {
+      top: 58.39%;
+      left: 31.62%;
+    }
+
+    .process__item--3 {
+      top: 0;
+      left: 59.8%;
+      width: 40.19%;
+    }
+
+    .process__ellipse {
+      top: 12.09%;
+      left: 16.74%;
+      width: 66.51%;
+      height: 72.17%;
+    }
+
+    .access__panel {
+      width: 423px;
+    }
+  }
+</style>
+
+<script>
+  /* astro:page-load se dispara en la carga inicial y tras cada
+     navegación por cliente: sin esto, el revelado solo funcionaría la
+     primera vez que se entra al sitio. */
+  document.addEventListener('astro:page-load', () => {
+    const proceso = document.querySelector<HTMLElement>('[data-proceso]');
+
+    if (proceso && 'IntersectionObserver' in window) {
+      /* Si al cargar ya está a la vista, se muestra sin más: esconderlo
+         ahora para revelarlo acto seguido produciría un parpadeo. */
+      const yaVisible = proceso.getBoundingClientRect().top < window.innerHeight;
+
+      if (!yaVisible) {
+        proceso.dataset.listo = '';
+
+        const revelar = () => {
+          proceso.classList.add('is-visible');
+          clearTimeout(redDeSeguridad);
+          observador.disconnect();
+        };
+
+        /* Si el observador no llegara a responder, el contenido se
+           muestra igualmente: una animación que falla nunca debe dejar
+           texto invisible. */
+        const redDeSeguridad = setTimeout(revelar, 3000);
+
+        const observador = new IntersectionObserver(
+          (entradas) => {
+            if (entradas.some((e) => e.isIntersecting)) revelar();
+          },
+          { threshold: 0.2 },
+        );
+
+        observador.observe(proceso);
+      }
+    }
+  });
+</script>

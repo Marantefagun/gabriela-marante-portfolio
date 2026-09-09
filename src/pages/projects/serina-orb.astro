@@ -1,0 +1,592 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+import SiteNav from '../../components/SiteNav.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import BackToTop from '../../components/BackToTop.astro';
+import ProcessCard from '../../components/project/ProcessCard.astro';
+import StatCard from '../../components/project/StatCard.astro';
+import OtherProjects from '../../components/project/OtherProjects.astro';
+
+import heroVr from '../../assets/projects/serina-orb/hero-vr.webp';
+import heroSpace from '../../assets/projects/serina-orb/hero-space.webp';
+import banner from '../../assets/projects/serina-orb/banner.webp';
+import alzado from '../../assets/projects/serina-orb/alzado.webp';
+import planta1 from '../../assets/projects/serina-orb/planta-1.webp';
+import planta4 from '../../assets/projects/serina-orb/planta-4.webp';
+import plantaPrograma from '../../assets/projects/serina-orb/planta-programa.webp';
+import patient from '../../assets/projects/serina-orb/patient.webp';
+import session from '../../assets/projects/serina-orb/session.webp';
+import metrics from '../../assets/projects/serina-orb/metrics.webp';
+import monitoring from '../../assets/projects/serina-orb/monitoring.webp';
+import award1 from '../../assets/projects/serina-orb/award-1.webp';
+import award2 from '../../assets/projects/serina-orb/award-2.webp';
+
+const ancho = '(min-width: 768px) calc(100vw - 80px), calc(100vw - 32px)';
+const medio = '(min-width: 1200px) 600px, (min-width: 768px) calc(100vw - 80px), calc(100vw - 32px)';
+---
+
+<Layout
+  title="Serina Orb — Gabriela Marante"
+  description="Un espacio virtual que replantea la experiencia del final de la vida. Premio iF Design “Best of the Year”."
+  image="/og/serina-orb.jpg"
+>
+  <div class="shell" id="top">
+    <SiteNav />
+
+    <main class="main">
+      <header class="intro">
+        <div class="intro__heading">
+          <h1 class="intro__title">Serina Orb</h1>
+          <p class="intro__subtitle">
+            How can we redefine the experience of waiting for death through design?
+          </p>
+        </div>
+        <Image
+          class="figure"
+          src={heroVr}
+          alt="Persona con gafas de realidad virtual reclinada en un entorno clínico."
+          widths={[400, 800, 1600, 2400]}
+          sizes={ancho}
+          loading="eager"
+        />
+        <Image
+          class="figure"
+          src={heroSpace}
+          alt="Vista del espacio virtual de Serina Orb, de formas orgánicas."
+          widths={[400, 800, 1600, 2400]}
+          sizes={ancho}
+        />
+      </header>
+
+      <section class="section section--overview">
+        <h2 class="section__title">Overview</h2>
+        <div class="prose">
+          <p>
+            This project proposes an experiential virtual space that redefines the experience of
+            death, aiming to create a more compassionate, supportive, and meaningful environment
+            beyond the clinical setting.
+          </p>
+          <p class="prose__soft">
+            In Western culture, death is often viewed as a distressing and unwelcome event — an
+            outlook intensified by the pandemic. Hospitals and clinics, designed for efficiency,
+            rarely address the emotional needs of those facing the end of life.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 class="section__title">Healthcare &amp; Virtual Reality</h2>
+        <div class="prose prose--healthcare">
+          <p>
+            <span
+              >Inspired by Superstudio’s 1960s vision of technology-linked futures, this project
+              reimagines pre-death rituals through virtual reality (VR).</span
+            >{' '}<span class="prose__soft"
+              >Modern neuroscience reveals VR’s ability to activate the hippocampus — critical for
+              memory and emotion — offering a pathway to reshape end-of-life experiences.</span
+            >
+          </p>
+          <p>With AR/VR adoption accelerating worldwide...</p>
+        </div>
+
+        <div class="stats">
+          <div class="stats__item stats__item--1">
+            <StatCard label="Active AR users" figure="1.73 billion by 2025." />
+          </div>
+          <div class="stats__item stats__item--2">
+            <StatCard
+              label="In healthcare alone, market is expected to reach"
+              figure="$10.82 billion by 2025."
+              tone="gradient"
+            />
+          </div>
+          <div class="stats__item stats__item--3">
+            <StatCard
+              label="Population that has experienced AR is now up to"
+              figure="75% worldwide."
+              bars={0.75}
+            />
+          </div>
+        </div>
+      </section>
+
+      <Image
+        class="figure figure--round"
+        src={banner}
+        alt="Fotograma del recorrido inmersivo de Serina Orb."
+        widths={[400, 800, 1600, 2400]}
+        sizes={ancho}
+      />
+
+      <section class="section section--end">
+        <h2 class="section__title">Value proposition</h2>
+        <ol class="value">
+          <li>
+            <ProcessCard step={1} title="Enhances patient comfort and mental well-being" />
+          </li>
+          <li>
+            <ProcessCard
+              step={2}
+              title="Builds a supportive community for patients, families, and caregivers"
+            />
+          </li>
+          <li>
+            <ProcessCard
+              step={3}
+              title="Optimizes data collection with real-time, multi-dimensional insights never achieved before"
+            />
+          </li>
+          <li>
+            <ProcessCard step={4} title="Always accessible — usable anytime, day or night" />
+          </li>
+        </ol>
+      </section>
+
+      <section class="section">
+        <h2 class="section__title">Spatial drawings — concept</h2>
+        <p class="prose prose--spatial">
+          The floor plan is designed as an experiential journey, using organic architectural forms to
+          create creative and captivating spaces within virtual reality.
+        </p>
+        <p class="prose prose--spatial">
+          <span
+            >By playing with shapes, textures, and sensations, the design immerses users while
+            prioritizing their well-being.</span
+          >{' '}<span class="prose__soft"
+            >This architecture invites reflection on the natural process of life and the
+            transcendence of death.</span
+          >
+        </p>
+        <div class="drawings">
+          <Image
+            class="figure"
+            src={alzado}
+            alt="Collage del alzado del espacio, con formas orgánicas superpuestas."
+            widths={[400, 800, 1600, 2400]}
+            sizes={ancho}
+          />
+          <div class="drawings__pair">
+            <Image
+              class="figure"
+              src={planta1}
+              alt="Collage de la planta 1.0 del recorrido."
+              widths={[400, 800, 1200]}
+              sizes={medio}
+            />
+            <Image
+              class="figure"
+              src={planta4}
+              alt="Collage de la planta 4.0 del recorrido."
+              widths={[400, 800, 1200]}
+              sizes={medio}
+            />
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--end">
+        <h2 class="section__title section__title--narrow">Vital signs monitorization by area</h2>
+        <p class="prose prose--vitals">
+          Each area of the Serina Orb journey is designed to support different vital signs — heart,
+          mind, and breath — promoting relaxation, emotional balance, and overall well-being.
+        </p>
+        <Image
+          class="figure"
+          src={plantaPrograma}
+          alt="Planta del recorrido con el programa de cada área y sus constantes vitales."
+          widths={[400, 800, 1600, 2400]}
+          sizes={ancho}
+        />
+      </section>
+
+      <section class="section">
+        <h2 class="section__title">The Solution experience</h2>
+        <p class="prose prose--solution">
+          Serina Orb is an immersion program based on an experiential system of virtual therapy and
+          meditation, to work on the emotionality of hospital patients on their deathbed.
+        </p>
+        <Image
+          class="figure figure--round"
+          src={patient}
+          alt="Paciente durante una sesión de meditación con el visor puesto."
+          widths={[400, 800, 1600, 2400]}
+          sizes={ancho}
+        />
+        <Image
+          class="figure figure--round"
+          src={session}
+          alt="Interior del entorno virtual durante una sesión."
+          widths={[400, 800, 1600, 2400]}
+          sizes={ancho}
+        />
+        <Image
+          class="figure figure--round"
+          src={metrics}
+          alt="Panel con las métricas recogidas durante la sesión."
+          widths={[400, 800, 1600, 2400]}
+          sizes={ancho}
+        />
+      </section>
+
+      <section class="section">
+        <h2 class="section__title">Data monitoring</h2>
+        <div class="prose prose--monitoring">
+          <p>
+            Through Serina Orb, users create a personal account to access unlimited meditation
+            sessions, with their progress and performance data securely stored and available for both
+            users and healthcare professionals.
+          </p>
+          <p class="prose__soft">
+            This system not only personalizes the meditation experience but also builds a global
+            network of shared insights, supporting real-time interaction and advancing future
+            research and treatments.
+          </p>
+        </div>
+        <Image
+          class="figure figure--round"
+          src={monitoring}
+          alt="Pantallas de seguimiento de datos de las sesiones."
+          widths={[400, 800, 1600, 2400]}
+          sizes={ancho}
+        />
+      </section>
+
+      <section class="section section--tight">
+        <h2 class="section__title">Award &amp; grant winner</h2>
+        <p class="prose">
+          Winner of the iF Design Award “Best of the Year” Grant &amp; the Francesco Morelli Grant
+          (2023).
+        </p>
+        <div class="awards">
+          <Image
+            class="awards__image"
+            src={award1}
+            alt="Diploma del iF Design Award “Best of the Year”."
+            widths={[400, 800, 1200]}
+            sizes={medio}
+          />
+          <Image
+            class="awards__image"
+            src={award2}
+            alt="Diploma de la beca Francesco Morelli."
+            widths={[400, 800, 1200]}
+            sizes={medio}
+          />
+        </div>
+      </section>
+
+      <OtherProjects current="serina-orb" />
+    </main>
+
+    <div class="page__end">
+      <BackToTop />
+      <SiteFooter
+        role="Product Designer"
+        email="marante.g.fagun@gmail.com"
+        location="Based in Madrid, Spain."
+      />
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-band);
+  }
+
+  /* ---------- Portada ---------- */
+
+  .intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .intro__heading {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .intro__title {
+    margin: 0;
+    color: var(--color-ink);
+    font-size: var(--text-title);
+    font-weight: var(--weight-regular);
+    line-height: 1.2;
+  }
+
+  .intro__subtitle {
+    margin: 0;
+    color: var(--color-ink);
+    font-size: var(--text-lead);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-default);
+  }
+
+  /* ---------- Secciones ---------- */
+
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  /* Dos secciones alinean su contenido a la derecha en el diseño. */
+  .section--end {
+    align-items: flex-end;
+  }
+
+  .section__title {
+    margin: 0;
+    color: var(--color-brand);
+    font-family: var(--font-display);
+    font-size: var(--text-section);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-default);
+    text-transform: uppercase;
+  }
+
+  .prose {
+    margin: 0;
+    color: var(--color-ink);
+    font-size: var(--text-lead);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-default);
+  }
+
+  .prose__soft {
+    color: var(--color-muted);
+  }
+
+  .prose :global(p) {
+    margin: 0;
+  }
+
+  .prose :global(p + p) {
+    margin-top: 1.25em;
+    margin-top: 1lh;
+  }
+
+  .figure {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+  }
+
+  .figure--round {
+    border-radius: var(--radius-lg);
+  }
+
+  /* ---------- Tarjetas de dato ---------- */
+
+  .stats {
+    container-type: inline-size;
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+  }
+
+  .stats__item {
+    display: flex;
+    transition:
+      translate var(--transition-state),
+      filter var(--transition-state);
+  }
+
+  /* Se usa `translate` y no `transform` porque la tarjeta del centro ya
+     lleva un transform propio para centrarse: son propiedades distintas
+     y no se pisan. */
+  @media (hover: hover) {
+    .stats__item:hover {
+      z-index: 10;
+      translate: 0 -4px;
+      filter: drop-shadow(0 6px 16px rgb(0 0 0 / 0.12));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stats__item:hover {
+      translate: none;
+    }
+  }
+
+  .stats__item > :global(*) {
+    flex: 1 1 auto;
+  }
+
+  /* ---------- Propuesta de valor ---------- */
+
+  .value {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    /* Aquí el círculo del número es negro, no azul de marca. */
+    --process-step-bg: rgb(0 0 0 / 0.81);
+  }
+
+  .value > li:nth-child(1) {
+    --process-bg: #d2a1b6;
+    --process-fg: #000000;
+  }
+
+  .value > li:nth-child(2) {
+    --process-bg: #1c180f;
+    --process-fg: var(--color-on-dark);
+  }
+
+  .value > li:nth-child(3) {
+    --process-bg: #eeeeee;
+    --process-fg: #000000;
+  }
+
+  .value > li:nth-child(4) {
+    --process-bg: #d5ceff;
+    --process-fg: #000000;
+  }
+
+  /* ---------- Dibujos ---------- */
+
+  .drawings {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .drawings__pair {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ---------- Premios ---------- */
+
+  .awards {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .awards__image {
+    width: 100%;
+    height: auto;
+    border: 1px solid #d0d0d0;
+    box-shadow: 8px 9px 28.5px 5px rgb(0 0 0 / 0.15);
+  }
+
+  /* ============================================================
+     Tablet
+     ============================================================ */
+
+  @media (min-width: 768px) {
+    .section,
+    .intro {
+      gap: var(--space-4);
+    }
+
+    /* Estas dos respiran menos en el diseño. */
+    .section--tight {
+      gap: var(--space-3);
+    }
+
+    .value {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .drawings__pair {
+      flex-direction: row;
+    }
+
+    .drawings__pair > :global(*) {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+
+    .awards {
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      padding: 19px 81px;
+    }
+
+    .awards__image {
+      width: auto;
+      max-width: 100%;
+    }
+
+    /* Las tres tarjetas se solapan en cascada. Las proporciones salen
+       del frame de escritorio: 1200 x 661. */
+    .stats {
+      position: relative;
+      display: block;
+      aspect-ratio: 1200 / 661;
+    }
+
+    .stats__item {
+      position: absolute;
+    }
+
+    .stats__item--1 {
+      bottom: -12.56%;
+      left: 6%;
+      width: 33.37%;
+      height: 49.17%;
+    }
+
+    .stats__item--2 {
+      bottom: 3.2%;
+      left: 50%;
+      width: 35.43%;
+      height: 58.52%;
+      transform: translateX(calc(-50% + 22.56px));
+    }
+
+    .stats__item--3 {
+      top: 8.17%;
+      right: 0;
+      width: 36.25%;
+      height: 60.2%;
+    }
+  }
+
+  /* ============================================================
+     Escritorio
+     ============================================================ */
+
+  @media (min-width: 1200px) {
+    /* Medidas de línea del frame de escritorio. */
+    .section--overview {
+      max-width: 864px;
+    }
+
+    .prose--healthcare {
+      max-width: 866px;
+    }
+
+    .prose--spatial {
+      max-width: 809px;
+    }
+
+    .prose--vitals,
+    .section__title--narrow {
+      max-width: 760px;
+    }
+
+    .prose--solution {
+      max-width: 768px;
+    }
+
+    .prose--monitoring {
+      max-width: 939px;
+    }
+
+    .value {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

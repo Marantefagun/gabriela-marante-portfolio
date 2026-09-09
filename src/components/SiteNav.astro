@@ -1,0 +1,275 @@
+---
+/* Los SVG van en línea para poder teñirlos con los tokens de color.
+   El icono de hamburguesa se repite en la barra cerrada y dentro del
+   menú abierto: en Figma no cambia de forma ni de sitio al abrirse. */
+const menuId = 'menu-movil';
+
+const enlaces = [
+  { href: '/#projects', texto: 'Projects' },
+  { href: '/about', texto: 'About' },
+  { href: '/contact', texto: 'Contact' },
+];
+
+/* Los enlaces de la barra son los mismos menos "Projects". */
+const enlacesBarra = enlaces.filter((e) => e.texto !== 'Projects');
+
+/* Marca la página en la que estás, para lectores de pantalla y para el
+   subrayado. Ambos lados pasan por la misma normalización: si solo se
+   normaliza uno, la raíz acaba comparando '' contra '/' y nunca casa. */
+const normaliza = (ruta: string) => ruta.split('#')[0].replace(/\/$/, '') || '/';
+const rutaActual = normaliza(Astro.url.pathname);
+const esActual = (href: string) => normaliza(href) === rutaActual;
+---
+
+<nav class="nav" aria-label="Principal">
+  <a
+    class="nav__logo"
+    href="/"
+    aria-label="Gabriela Marante — inicio"
+    aria-current={esActual('/') ? 'page' : undefined}
+  >
+    <svg viewBox="0 0 13.9973 22.2394" fill="none" aria-hidden="true" focusable="false">
+      <path
+        d="M0 7.06804C0 3.17248 3.20717 0 6.99867 0H13.9973V2.17191H11.9962C13.2022 3.37793 13.9973 5.17095 13.9973 7.06804C13.9973 11.137 10.7902 14.3095 6.99867 14.3095C3.20717 14.3095 0 11.137 0 7.06804ZM0 15.0673H2.17191C2.17191 17.8609 4.3785 20.0675 6.99867 20.0675C9.61883 20.0675 11.8254 17.8609 11.8254 15.0673H13.9973C13.9973 19.0669 10.7902 22.2394 6.99867 22.2394C3.20717 22.2394 0 19.0669 0 15.0673ZM11.8281 7.06804C11.8281 4.3785 9.58681 2.17191 7.00133 2.17191C4.41586 2.17191 2.17191 4.3785 2.17191 7.06804C2.17191 9.93101 4.3785 12.1376 6.99867 12.1376C9.61883 12.1376 11.8254 9.93101 11.8254 7.06804H11.8281Z"
+        fill="currentColor"></path>
+    </svg>
+  </a>
+
+  <ul class="nav__links">
+    {
+      enlacesBarra.map((e) => (
+        <li>
+          <a href={e.href} aria-current={esActual(e.href) ? 'page' : undefined}>
+            {e.texto}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  <button
+    class="nav__menu"
+    type="button"
+    aria-label="Abrir menú"
+    aria-expanded="false"
+    aria-controls={menuId}
+    data-menu-open
+  >
+    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+      <path d="M14.25 12H1.75" stroke="currentColor" stroke-linecap="round"></path>
+      <path d="M14.25 8H1.75" stroke="currentColor" stroke-linecap="round"></path>
+      <path d="M14.25 4H1.75" stroke="currentColor" stroke-linecap="round"></path>
+    </svg>
+  </button>
+</nav>
+
+<div class="menu" id={menuId} hidden>
+  <div class="menu__bar">
+    <button class="menu__close" type="button" aria-label="Cerrar menú" data-menu-close>
+      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+        <path d="M14.25 12H1.75" stroke="currentColor" stroke-linecap="round"></path>
+        <path d="M14.25 8H1.75" stroke="currentColor" stroke-linecap="round"></path>
+        <path d="M14.25 4H1.75" stroke="currentColor" stroke-linecap="round"></path>
+      </svg>
+    </button>
+  </div>
+
+  <ul class="menu__list">
+    {
+      enlaces.map((e) => (
+        <li>
+          <a href={e.href} aria-current={esActual(e.href) ? 'page' : undefined}>
+            {e.texto}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius);
+    background-color: var(--color-brand);
+    color: var(--color-on-dark);
+  }
+
+  .nav__logo {
+    display: block;
+    color: inherit;
+  }
+
+  .nav__logo svg {
+    display: block;
+    width: 14px;
+    height: 22.239px;
+  }
+
+  .nav__links {
+    display: none;
+    gap: var(--space-4);
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .nav__links a {
+    color: inherit;
+    font-size: var(--text-body);
+    font-weight: var(--weight-medium);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .nav__links a:hover,
+  .nav__links a:focus-visible,
+  .nav__links a[aria-current='page'],
+  .menu__list a[aria-current='page'] {
+    text-decoration: underline;
+  }
+
+  .nav__menu,
+  .menu__close {
+    display: inline-flex;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .nav__menu svg,
+  .menu__close svg {
+    display: block;
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Los botones de icono no tenían estado: sin esto no hay forma de
+     saber que responden ni de ver dónde está el foco del teclado. */
+  .nav__menu,
+  .menu__close {
+    border-radius: 2px;
+    opacity: 1;
+    transition: opacity var(--transition-state);
+  }
+
+  .nav__menu:hover,
+  .menu__close:hover {
+    opacity: 0.7;
+  }
+
+  /* Menú desplegable: ocupa la pantalla entera en azul de marca.
+     El padding de 16px replica el del frame de Figma, de forma que la
+     hamburguesa cae exactamente donde estaba con el menú cerrado. */
+  .menu {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-2);
+    background-color: var(--color-brand);
+    color: var(--color-on-dark);
+  }
+
+  .menu[hidden] {
+    display: none;
+  }
+
+  .menu__bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: var(--space-1) var(--space-2);
+  }
+
+  .menu__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 60px var(--space-2);
+    list-style: none;
+  }
+
+  .menu__list a {
+    display: block;
+    color: inherit;
+    font-size: var(--text-lg);
+    font-weight: var(--weight-regular);
+    line-height: 24px;
+    text-decoration: none;
+  }
+
+  .menu__list a:hover,
+  .menu__list a:focus-visible {
+    text-decoration: underline;
+  }
+
+  /* A partir de tablet se ven los enlaces, y ni la hamburguesa ni el
+     desplegable tienen sentido. */
+  @media (min-width: 768px) {
+    .nav__links {
+      display: flex;
+    }
+
+    .nav__menu,
+    .menu {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  /* Con navegación por cliente los scripts de módulo se ejecutan una
+     sola vez, así que nada puede quedarse guardando referencias a
+     elementos concretos: al cambiar de página serían nodos muertos.
+     Todo se resuelve por delegación, consultando el DOM al vuelo. */
+  const partes = () => ({
+    abrir: document.querySelector<HTMLButtonElement>('[data-menu-open]'),
+    cerrar: document.querySelector<HTMLButtonElement>('[data-menu-close]'),
+    menu: document.getElementById('menu-movil'),
+  });
+
+  const alternar = (abierto: boolean) => {
+    const { abrir, cerrar, menu } = partes();
+    if (!abrir || !cerrar || !menu) return;
+
+    menu.hidden = !abierto;
+    abrir.setAttribute('aria-expanded', String(abierto));
+    (abierto ? cerrar : abrir).focus();
+  };
+
+  document.addEventListener('click', (evento) => {
+    const destino = evento.target as HTMLElement | null;
+    if (!destino?.closest) return;
+
+    if (destino.closest('[data-menu-open]')) alternar(true);
+    else if (destino.closest('[data-menu-close]')) alternar(false);
+    /* Los enlaces del menú llevan a anclas o a otras páginas: en ambos
+       casos el desplegable sobra una vez pulsado. */
+    else if (destino.closest('#menu-movil a')) alternar(false);
+  });
+
+  document.addEventListener('keydown', (evento) => {
+    const { menu } = partes();
+    if (evento.key === 'Escape' && menu && !menu.hidden) alternar(false);
+  });
+
+  /* Si la ventana crece hasta tablet con el menú abierto, se cierra:
+     ahí los enlaces ya están en la barra. */
+  const escritorio = window.matchMedia('(min-width: 768px)');
+  const sincronizar = () => {
+    const { menu } = partes();
+    if (escritorio.matches && menu && !menu.hidden) alternar(false);
+  };
+
+  escritorio.addEventListener('change', sincronizar);
+  window.addEventListener('resize', sincronizar, { passive: true });
+</script>

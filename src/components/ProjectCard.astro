@@ -1,0 +1,184 @@
+---
+import { Image } from 'astro:assets';
+import Tag from './Tag.astro';
+import { projects } from '../data/projects';
+
+interface Props {
+  image: ImageMetadata;
+  alt: string;
+  /* El nombre del proyecto se usa dos veces: como etiqueta hasta 1200px
+     y como texto del velo al pasar el ratón por encima de ahí. Es el
+     mismo dato, así que va en una sola prop. */
+  title?: string;
+  subtitle?: string;
+  variant?: 'default' | 'feature' | 'tall';
+  badge?: ImageMetadata;
+  badgeAlt?: string;
+  /* Proyecto al que lleva la tarjeta. Solo se enlaza si su página ya
+     existe, para no dejar enlaces rotos mientras se van montando. */
+  slug?: string;
+}
+
+const { image, alt, title, subtitle, variant = 'default', badge, badgeAlt = '', slug } = Astro.props;
+
+const proyecto = slug ? projects.find((p) => p.slug === slug) : undefined;
+const href = proyecto?.published ? `/projects/${proyecto.slug}` : undefined;
+
+/* La tarjeta destacada ocupa el ancho completo; el resto va a media
+   rejilla en escritorio. Eso cambia el tamaño que debe servirse. */
+const feature = variant === 'feature';
+
+/* Las tarjetas ya no tienen tope: ocupan el ancho de la pantalla menos
+   el margen de página (16px en mobile, 40px a partir de tablet) y, en
+   escritorio, la mitad descontando el gutter de 24px. */
+const sizes = feature
+  ? '(min-width: 768px) calc(100vw - 80px), calc(100vw - 32px)'
+  : '(min-width: 1200px) calc((100vw - 104px) / 2), (min-width: 768px) calc(100vw - 80px), calc(100vw - 32px)';
+
+/* Se cubre hasta 2400px. Por encima (pantallas enormes en retina) la
+   foto pierde algo de nitidez, pero un 3200 pesaría cerca de 1 MB. */
+const widths = feature ? [400, 800, 1600, 2400] : [400, 800, 1200, 1600, 2400];
+---
+
+<div class="slot">
+  {title && <Tag label={title} />}
+
+  <article class:list={['card', `card--${variant}`, href && 'card--link']}>
+    {
+      href && (
+        <a class="card__link" href={href} aria-label={title} data-cursor-zona>
+          <span class="visually-hidden">{title}</span>
+        </a>
+      )
+    }
+    <Image
+      class="card__image"
+      src={image}
+      alt={alt}
+      widths={widths}
+      sizes={sizes}
+    />
+    {
+      badge && (
+        <div class="badge">
+          <Image class="badge__image" src={badge} alt={badgeAlt} width={171} height={171} />
+        </div>
+      )
+    }
+    {
+      title && (
+        <div class="veil">
+          <p class="veil__title">{title}</p>
+          {subtitle && <p class="veil__subtitle">{subtitle}</p>}
+        </div>
+      )
+    }
+  </article>
+</div>
+
+<style>
+  .slot {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .card {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    height: var(--card-h);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .card--feature {
+    height: var(--card-h-feature);
+  }
+
+  .card--tall {
+    height: var(--card-h-tall);
+  }
+
+  /* El enlace cubre toda la tarjeta y va por encima de la imagen, pero
+     por debajo del velo, que es puramente decorativo. */
+  .card__link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+  }
+
+  /* El puntero del sistema se retira: lo sustituye la etiqueta VIEW.
+     Solo donde hay ratón, claro. */
+  @media (hover: hover) {
+    .card--link .card__link {
+      cursor: none;
+    }
+  }
+
+  .card__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  /* Sello del premio: recorte exacto del original cuadrado. */
+  .badge {
+    position: relative;
+    width: 148px;
+    height: 74px;
+    margin: var(--space-3);
+    background-color: var(--color-bg);
+    overflow: hidden;
+  }
+
+  .badge__image {
+    position: absolute;
+    top: -64.84%;
+    left: -7.46%;
+    width: 115.24%;
+    height: 230.07%;
+    max-width: none;
+  }
+
+  /* Velo con el nombre del proyecto. El texto está siempre en el DOM
+     —solo se oculta visualmente— para que los lectores de pantalla lo
+     anuncien haya ratón o no. */
+  .veil {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-3);
+    background-color: var(--color-overlay);
+    color: var(--color-on-dark);
+    text-align: center;
+    opacity: 0;
+    transition: opacity var(--transition-state);
+  }
+
+  .veil__title,
+  .veil__subtitle {
+    margin: 0;
+    font-size: var(--text-body);
+    font-weight: var(--weight-regular);
+  }
+
+  /* Solo por encima de 1200px, que es justo donde la etiqueta se oculta:
+     uno releva al otro. Y solo donde de verdad hay ratón, para que en
+     táctil no se quede pegado tras un toque. */
+  @media (min-width: 1200px) and (hover: hover) {
+    .card:hover .veil,
+    .card:focus-within .veil {
+      opacity: 1;
+    }
+  }
+</style>

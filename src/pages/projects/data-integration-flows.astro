@@ -1,0 +1,599 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+import SiteNav from '../../components/SiteNav.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import BackToTop from '../../components/BackToTop.astro';
+import ProcessCard from '../../components/project/ProcessCard.astro';
+import StepTitle from '../../components/project/StepTitle.astro';
+import IntegrationCard from '../../components/project/IntegrationCard.astro';
+import OtherProjects from '../../components/project/OtherProjects.astro';
+
+import hero from '../../assets/projects/data-integration/hero.webp';
+import desired from '../../assets/projects/data-integration/desired.webp';
+import connections1 from '../../assets/projects/data-integration/connections-1.webp';
+import connections2 from '../../assets/projects/data-integration/connections-2.webp';
+import schema from '../../assets/projects/data-integration/schema.webp';
+import projectCreated from '../../assets/projects/data-integration/project-created.webp';
+import wireframes from '../../assets/projects/data-integration/wireframes.webp';
+
+import snowflake from '../../assets/projects/data-integration/logos/snowflake.webp';
+import bigquery from '../../assets/projects/data-integration/logos/bigquery.webp';
+import azureSql from '../../assets/projects/data-integration/logos/azure-sql.png';
+import mysql from '../../assets/projects/data-integration/logos/mysql.webp';
+import databricks from '../../assets/projects/data-integration/logos/databricks.webp';
+import googleSheets from '../../assets/projects/data-integration/logos/google-sheets.webp';
+
+const ancho = '(min-width: 768px) calc(100vw - 80px), calc(100vw - 32px)';
+
+const integraciones = [
+  { name: 'Snowflake', logo: snowflake, description: 'Sync and transform data from diverse sources for unified analytics.' },
+  { name: 'Big Query', logo: bigquery, description: 'Integrate & replicate large-scale datasets for fast, cloud-based analysis' },
+  { name: 'Azure SQL', logo: azureSql, description: 'Consolidate and automate data flows from multiple platforms into secure' },
+  { name: 'MySQL', logo: mysql, description: 'Connect, transform, and unify business data seamlessly with' },
+  { name: 'Databricks', logo: databricks, description: 'Centralize and prepare multi-source data' },
+  { name: 'Google Sheets', logo: googleSheets, description: 'Integrate and query large-scale datasets for real-time' },
+];
+---
+
+<Layout
+  title="Data Integration Flows — Gabriela Marante"
+  description="Rediseño del flujo de conexión de datos de Graphext para unificar fuentes dispares en un solo proyecto."
+  image="/og/data-integration-flows.jpg"
+>
+  <div class="shell" id="top">
+    <SiteNav />
+
+    <main class="main">
+      <header class="intro">
+        <div class="intro__heading">
+          <h1 class="intro__title">Data Integration Flows</h1>
+          <p class="intro__subtitle">Separation of connection &amp; data source</p>
+        </div>
+        <Image
+          class="intro__image"
+          src={hero}
+          alt="Pantalla del flujo de integración de datos de Graphext."
+          widths={[400, 800, 1600, 2400]}
+          sizes={ancho}
+          loading="eager"
+        />
+      </header>
+
+      <section class="section">
+        <h2 class="section__title">The Problem</h2>
+        <div class="prose prose--problem">
+          <p>
+            <span
+              >Clients’ Voice of Customer data was scattered across multiple platforms and formats,
+              making it difficult to unify and analyze feedback effectively.</span
+            >{' '}<span class="prose__soft">This fragmentation made it nearly impossible to:</span>
+          </p>
+          <ul>
+            <li>
+              Integrate structured and unstructured feedback{' '}<span class="prose__soft"
+                >(e.g., NPS scores, open-text responses, chat transcripts, social posts) from
+                different sources into a single project.</span
+              >
+            </li>
+            <li>
+              Query and analyze data flexibly —{' '}<span class="prose__soft"
+                >for example, combining survey results with support ticket sentiment, or filtering
+                feedback by product and region — without writing complex, technical queries.</span
+              >
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section section--end">
+        <h2 class="section__title">My Role</h2>
+        <p class="prose prose--role">
+          <span
+            >I redesigned Graphext’s data connection and project creation flow to enable seamless
+            integration of multiple, heterogeneous VoC</span
+          >{' '}<span class="prose__soft"
+            >datasets and to lower the technical barrier for querying and analysis, especially for
+            business users.</span
+          >
+        </p>
+      </section>
+
+      <section class="section">
+        <h2 class="section__title">How I solved it</h2>
+        <ol class="cards">
+          <li>
+            <ProcessCard step={1} title="Discovery" tone="warm">
+              <p>
+                User interviews revealed that VoC teams needed to combine feedback from surveys,
+                support logs, and reviews, but Graphext’s single-schema connection model forced them
+                into time-consuming workarounds or limited their analysis to one source at a time.
+              </p>
+            </ProcessCard>
+          </li>
+          <li>
+            <ProcessCard step={2} title="Ideation" tone="dark">
+              <p>
+                I restructured the workflow to allow users to connect to multiple data sources (e.g.,
+                Snowflake for survey data, Notion for support logs, APIs for social media)
+                independently, then select and combine relevant datasets.
+              </p>
+            </ProcessCard>
+          </li>
+          <li>
+            <ProcessCard step={3} title="AI-Assistant" tone="cool">
+              <p>
+                To address the querying challenge, I designed an AI-powered assistant that let users
+                request data in plain language — such as “Show all negative reviews about Product X
+                from last quarter” — eliminating the need for SQL or technical know-how.
+              </p>
+            </ProcessCard>
+          </li>
+          <li>
+            <ProcessCard step={4} title="Prototyping & Validation" tone="muted">
+              <p>
+                I built and tested prototypes with real VoC teams, who reported that the new flow
+                made it dramatically easier to build comprehensive, cross-source analyses.
+              </p>
+            </ProcessCard>
+          </li>
+        </ol>
+      </section>
+
+      <section class="section">
+        <h2 class="section__title">Desired Interaction</h2>
+        <Image
+          class="figure"
+          src={desired}
+          alt="Diagrama de la interacción deseada al conectar varias fuentes de datos."
+          widths={[400, 800, 1600, 2400]}
+          sizes={ancho}
+        />
+      </section>
+
+      <section class="section section--end">
+        <h2 class="section__title section__title--end">
+          Why the separation of connection &amp; data source?
+        </h2>
+        <div class="prose prose--why">
+          <p>
+            To improve clarity and flexibility in the integration flow, I intentionally separated the
+            “connection” and “data source” steps. This allowed to:
+          </p>
+          <ul>
+            <li>
+              Create and manage multiple connections independently,{' '}<span class="prose__soft"
+                >without needing to define all details up front.</span
+              >
+            </li>
+            <li>
+              Reuse connections later across different projects,{' '}<span class="prose__soft"
+                >improving efficiency.</span
+              >
+            </li>
+            <li>
+              Save drafts and exit the flow at any point,{' '}<span class="prose__soft"
+                >which reduced friction for users who weren’t ready to complete the setup in one
+                session.</span
+              >
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 class="section__title">Solution</h2>
+        <ol class="prose prose--solution">
+          <li>
+            Connect to multiple, disparate data sources in a single project.
+            <ol class="prose__sub">
+              <li class="prose__soft">Query data using natural language.</li>
+            </ol>
+          </li>
+          <li>Confirm schema.</li>
+          <li>Create projects that deliver a unified, actionable view of customer feedback.</li>
+        </ol>
+      </section>
+
+      <section class="flow flow--connect">
+        <div class="flow__block">
+          <StepTitle step={1} title="Connect your data" />
+          <div class="integrations">
+            <div class="integrations__grid">
+              {integraciones.map((i) => <IntegrationCard {...i} />)}
+            </div>
+          </div>
+          <p class="note">*Select integration type.</p>
+        </div>
+
+        <div class="flow__block flow__block--end">
+          <Image
+            class="figure figure--bordered"
+            src={connections1}
+            alt="Formulario de creación de una conexión en Graphext."
+            widths={[400, 800, 1600]}
+            sizes={ancho}
+          />
+          <p class="note note--end">*Fill form information and save the connection.</p>
+        </div>
+
+        <div class="flow__block">
+          <Image
+            class="figure figure--bordered"
+            src={connections2}
+            alt="Generación de SQL con IA a partir de una petición en lenguaje natural."
+            widths={[400, 800, 1600]}
+            sizes={ancho}
+          />
+          <p class="note">*Select “Generate SQL with AI” and write request.</p>
+        </div>
+      </section>
+
+      <section class="flow">
+        <div class="flow__block">
+          <StepTitle step={2} title="Confirm & preview schema" />
+          <Image
+            class="figure figure--bordered"
+            src={schema}
+            alt="Vista previa del esquema de datos antes de confirmarlo."
+            widths={[400, 800, 1600, 2400]}
+            sizes={ancho}
+          />
+        </div>
+      </section>
+
+      <section class="flow">
+        <div class="flow__block">
+          <StepTitle step={3} title="Creation of project" />
+          <div class="framed">
+            <Image
+              class="framed__image"
+              src={projectCreated}
+              alt="Proyecto ya creado dentro de la carpeta personal."
+              widths={[400, 800, 1600]}
+              sizes={ancho}
+            />
+          </div>
+          <p class="note">
+            *Check your personal folder in order to access the created project.{' '}<span
+              class="prose__soft">(You can later move it across teams).</span
+            >
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wire__heading">
+          <h2 class="section__title">Wire-framing &amp; UI Elements</h2>
+          <p class="wire__subtitle">
+            Some of the elements I designed specifically for the new integrations flow.
+          </p>
+        </div>
+        <Image
+          class="figure"
+          src={wireframes}
+          alt="Muestra de los componentes de interfaz diseñados para el nuevo flujo de integraciones."
+          widths={[400, 800, 1216]}
+          sizes={ancho}
+        />
+      </section>
+
+      <section class="section">
+        <h2 class="section__title">Impact</h2>
+        <ul class="prose prose--impact">
+          <li>
+            Users: While we didn’t track detailed analytics as a startup, the results were
+            immediately visible internally: the integrations were easier to publish, and teams like
+            Sales and Customer Support began using the platform without needing technical support.{' '}<span
+              class="prose__soft"
+              >This helped the product scale without adding more engineering overhead.</span
+            >
+          </li>
+          <li>
+            Internal team: In addition, we overhauled the previous, rigid implementation for
+            uploading datasets, streamlining and cleaning up the codebase.{' '}<span
+              class="prose__soft"
+              >This made the system far easier for the development team to maintain and extend —
+              something they were especially grateful for, given the limitations of the earlier
+              quick-fix approach.</span
+            >
+          </li>
+        </ul>
+      </section>
+
+      <OtherProjects current="data-integration-flows" />
+    </main>
+
+    <div class="page__end">
+      <BackToTop />
+      <SiteFooter
+        role="Product Designer"
+        email="marante.g.fagun@gmail.com"
+        location="Based in Madrid, Spain."
+      />
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-band);
+  }
+
+  /* ---------- Portada ---------- */
+
+  .intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .intro__heading {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .intro__title {
+    margin: 0;
+    color: var(--color-ink);
+    font-size: var(--text-title);
+    font-weight: var(--weight-regular);
+    line-height: 1.2;
+  }
+
+  .intro__subtitle {
+    margin: 0;
+    color: var(--color-ink);
+    font-size: var(--text-lead);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-default);
+  }
+
+  .intro__image {
+    width: 100%;
+    height: auto;
+    border: 1px solid #e9e9e9;
+    border-radius: var(--radius-lg);
+  }
+
+  /* ---------- Secciones ---------- */
+
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  /* Dos secciones se alinean a la derecha en el diseño. */
+  .section--end {
+    align-items: flex-end;
+  }
+
+  .section__title {
+    margin: 0;
+    color: var(--color-brand);
+    font-family: var(--font-display);
+    font-size: var(--text-section);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-default);
+    text-transform: uppercase;
+  }
+
+  .prose {
+    margin: 0;
+    color: var(--color-ink);
+    font-size: var(--text-lead);
+    font-weight: var(--weight-light);
+    line-height: var(--leading-default);
+  }
+
+  .prose__soft {
+    color: var(--color-muted);
+  }
+
+  .prose :global(p) {
+    margin: 0;
+  }
+
+  .prose :global(p + ul),
+  .prose :global(p + ol) {
+    margin-top: 1.25em;
+    margin-top: 1lh;
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin: 0;
+    padding-left: 1.5em;
+  }
+
+  .prose :global(li + li) {
+    margin-top: 0.5em;
+  }
+
+  .prose__sub {
+    margin-top: 0.5em;
+    list-style: lower-alpha;
+  }
+
+  /* La sección "The Problem" usa peso normal, no Light. */
+  .prose--problem {
+    font-weight: var(--weight-regular);
+  }
+
+  .figure {
+    width: 100%;
+    height: auto;
+  }
+
+  .figure--bordered {
+    border: 1px solid #e9e9e9;
+    border-radius: var(--radius-lg);
+  }
+
+  /* ---------- Tarjetas de proceso ---------- */
+
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* ---------- Pasos ---------- */
+
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .flow__block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .note {
+    margin: 0;
+    color: var(--color-ink);
+    font-size: var(--text-body);
+    font-weight: var(--weight-light);
+    line-height: var(--leading-default);
+  }
+
+  /* ---------- Selector de integraciones (interfaz de Graphext) ---------- */
+
+  .integrations {
+    overflow: hidden;
+    border: 1px solid #e9e9e9;
+    border-radius: var(--radius-lg);
+    background-color: #f2f2f2;
+  }
+
+  .integrations__grid {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: var(--space-2);
+    padding: var(--space-3) 0 0 var(--space-3);
+  }
+
+  /* ---------- Marco gris de "Creation of project" ---------- */
+
+  .framed {
+    width: 100%;
+  }
+
+  .framed__image {
+    width: 100%;
+    height: auto;
+    border: 1px solid #e9e9e9;
+    border-radius: var(--radius-lg);
+  }
+
+  /* ---------- Wireframes ---------- */
+
+  .wire__heading {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .wire__subtitle {
+    margin: 0;
+    color: var(--color-ink);
+    font-size: var(--text-lead);
+    font-weight: var(--weight-light);
+    line-height: var(--leading-default);
+  }
+
+  /* ============================================================
+     Tablet
+     ============================================================ */
+
+  @media (min-width: 768px) {
+    .section,
+    .flow__block {
+      gap: var(--space-3);
+    }
+
+    .intro {
+      gap: var(--space-4);
+    }
+
+    .flow {
+      gap: var(--space-5);
+    }
+
+    .cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .integrations__grid {
+      grid-template-columns: repeat(3, max-content);
+      padding: 62.826px 0 0 62.826px;
+    }
+
+    .note--end {
+      align-self: flex-end;
+      text-align: right;
+    }
+
+    .flow__block--end {
+      align-items: flex-end;
+    }
+
+    .framed {
+      padding: 107px 0 0 77px;
+      border: 1px solid #e9e9e9;
+      border-radius: var(--radius-lg);
+      background-color: #f2f2f2;
+    }
+
+    .framed__image {
+      border: 0;
+      border-radius: var(--radius-lg) 0 0 0;
+    }
+  }
+
+  /* ============================================================
+     Escritorio
+     ============================================================ */
+
+  @media (min-width: 1200px) {
+    /* Medidas de línea del frame de escritorio. */
+    .prose--problem {
+      max-width: 702px;
+    }
+
+    .prose--role {
+      max-width: 735px;
+    }
+
+    .prose--why {
+      max-width: 920px;
+    }
+
+    .prose--impact {
+      max-width: 889px;
+    }
+
+    .section__title--end {
+      text-align: right;
+    }
+
+    .cards {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .integrations {
+      width: 642px;
+      height: 452px;
+    }
+  }
+</style>

@@ -1,0 +1,153 @@
+---
+/* Tarjeta de dato del proyecto Serina Orb. En escritorio las tres se
+   superponen en cascada; en móvil se apilan. Los tamaños de texto van en
+   unidades de contenedor (cqw) para que toda la composición escale a la
+   vez y nunca desborde. */
+interface Props {
+  label: string;
+  figure: string;
+  /* "plain" es el gris claro; "gradient" la del centro. */
+  tone?: 'plain' | 'gradient';
+  /* Fracción rellena del minigráfico de barras, si lo lleva (0–1). */
+  bars?: number;
+}
+
+const { label, figure, tone = 'plain', bars } = Astro.props;
+const TOTAL = 10;
+---
+
+<article class:list={['stat', tone === 'gradient' && 'stat--gradient']}>
+  <p class="stat__label">{label}</p>
+
+  {
+    bars !== undefined && (
+      <div class="stat__bars" aria-hidden="true">
+        {Array.from({ length: TOTAL }, (_, i) => {
+          const relleno = Math.min(Math.max(bars * TOTAL - i, 0), 1);
+          return (
+            <span class="stat__bar">
+              <span class="stat__bar-fill" style={`--relleno:${relleno * 100}%;--orden:${i}`} />
+            </span>
+          );
+        })}
+      </div>
+    )
+  }
+
+  <p class="stat__figure">{figure}</p>
+</article>
+
+<style>
+  .stat {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding: var(--space-2);
+    overflow: hidden;
+    border-radius: var(--radius);
+    background-color: #eeeeee;
+    color: #000000;
+  }
+
+  /* El degradado concreto lo fija cada página con --stat-gradient:
+     Serina y Nuba usan ángulos y paradas distintos. */
+  .stat--gradient {
+    background-image: var(
+      --stat-gradient,
+      linear-gradient(-46.23deg, rgb(214 232 253) 18.79%, rgb(185 173 255) 146.17%)
+    );
+  }
+
+  .stat__label,
+  .stat__figure {
+    margin: 0;
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-default);
+  }
+
+  .stat__label {
+    font-size: var(--text-lead);
+  }
+
+  .stat__figure {
+    font-size: 2rem;
+  }
+
+  .stat__bars {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .stat__bar {
+    flex: none;
+    width: 8px;
+    height: 22px;
+    overflow: hidden;
+    background-color: #d0d0d0;
+  }
+
+  /* El ancho de reposo ya es el valor final: la animación es un añadido,
+     así que si no llega a ejecutarse las barras se ven llenas igual. */
+  .stat__bar-fill {
+    display: block;
+    width: var(--relleno);
+    height: 100%;
+    background-color: #b9adff;
+    animation: llenar-barra 6s ease-in-out infinite;
+    animation-delay: calc(var(--orden) * 60ms);
+  }
+
+  /* Sube, se mantiene un buen rato y vuelve. El desfase de 60ms entre
+     barras hace que se llene como una ola, de izquierda a derecha. */
+  @keyframes llenar-barra {
+    0% {
+      width: 0;
+    }
+
+    22% {
+      width: var(--relleno);
+    }
+
+    82% {
+      width: var(--relleno);
+    }
+
+    100% {
+      width: 0;
+    }
+  }
+
+  /* Con movimiento reducido, las barras se quedan quietas y llenas. */
+  @media (prefers-reduced-motion: reduce) {
+    .stat__bar-fill {
+      animation: none;
+      width: var(--relleno);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .stat {
+      padding: 1.65cqw;
+      gap: 1.65cqw;
+    }
+
+    .stat__label {
+      font-size: 2.47cqw;
+    }
+
+    .stat__figure {
+      font-size: 4.94cqw;
+    }
+
+    .stat__bars {
+      gap: 0.93cqw;
+    }
+
+    .stat__bar {
+      width: 1.65cqw;
+      height: 4.63cqw;
+    }
+  }
+</style>

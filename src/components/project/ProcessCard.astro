@@ -1,0 +1,95 @@
+---
+/* Tarjeta numerada del diagrama "Design Process". Cada una lleva su
+   propio color de fondo, que viene del diseño y no del sistema: son
+   ilustrativos de esta página, no tokens reutilizables. */
+interface Props {
+  step: number;
+  title: string;
+  tone?: 'warm' | 'dark' | 'cool' | 'muted';
+}
+
+const { step, title, tone } = Astro.props;
+---
+
+<article class:list={['card', tone && `card--${tone}`]}>
+  <h3 class="card__title">{title}</h3>
+  {Astro.slots.has('default') && <div class="card__body"><slot /></div>}
+  <p class="card__step" aria-hidden="true">{step}</p>
+</article>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--space-5);
+    height: 100%;
+    padding: 32px var(--space-3);
+    border-radius: var(--radius-lg);
+  }
+
+  /* Presets. Una página puede saltárselos fijando --process-bg,
+     --process-fg y --process-step-bg en su propio ámbito. */
+  .card {
+    background-color: var(--process-bg, transparent);
+    color: var(--process-fg, inherit);
+  }
+
+  .card--warm {
+    --process-bg: #ff8940;
+    --process-fg: #000000;
+  }
+
+  .card--dark {
+    --process-bg: #1f1f1f;
+    --process-fg: var(--color-on-dark);
+  }
+
+  .card--cool {
+    --process-bg: #e5f3ff;
+    --process-fg: #0b0b0b;
+  }
+
+  .card--muted {
+    --process-bg: rgb(159 173 218 / 0.47);
+    --process-fg: #000000;
+  }
+
+  .card__title {
+    margin: 0;
+    font-size: var(--text-section);
+    font-weight: var(--weight-light);
+    line-height: var(--leading-default);
+  }
+
+  .card__body {
+    font-size: var(--text-body);
+    font-weight: var(--weight-light);
+    line-height: var(--leading-default);
+  }
+
+  .card__body :global(p) {
+    margin: 0;
+  }
+
+  .card__body :global(p + p) {
+    margin-top: 1.25em;
+    margin-top: 1lh;
+  }
+
+  /* El número va al final y en su propio círculo. Se oculta a los
+     lectores de pantalla: el orden ya lo da la propia lista. */
+  .card__step {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--size-step);
+    height: var(--size-step);
+    margin: 0;
+    border-radius: 50%;
+    background-color: var(--process-step-bg, rgb(39 72 255 / 0.81));
+    color: var(--color-on-dark);
+    font-size: var(--text-body);
+    font-weight: var(--weight-semibold);
+  }
+</style>

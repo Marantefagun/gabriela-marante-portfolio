@@ -1,0 +1,94 @@
+---
+import Chip from '../Chip.astro';
+import { projects } from '../../data/projects';
+
+interface Props {
+  /* Proyecto en el que estamos, que se excluye de los atajos. */
+  current: string;
+}
+
+const { current } = Astro.props;
+const otros = projects.filter((p) => p.slug !== current);
+---
+
+<nav class="others" aria-label="Otros proyectos">
+  <h2 class="others__title">Other projects</h2>
+
+  <ul class="others__list">
+    {
+      otros.map((p) => (
+        <li>
+          {p.published ? (
+            <a class="others__link" href={`/projects/${p.slug}`}>
+              <Chip label={p.label} variant="brand" />
+            </a>
+          ) : (
+            <Chip label={p.label} variant="brand" />
+          )}
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<style>
+  .others {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .others__title {
+    margin: 0;
+    color: var(--color-muted);
+    font-family: var(--font-display);
+    font-size: var(--text-section);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-default);
+    text-transform: uppercase;
+  }
+
+  .others__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Al pasar por encima, el chip se rellena y se convierte en la
+     etiqueta azul de las tarjetas de la home: mismo lenguaje, dos
+     estados. Los colores viajan por herencia de variables, así que no
+     hace falta cruzar ámbitos para llegar al Chip. */
+  .others__link {
+    display: block;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: transform var(--transition-state);
+  }
+
+  .others__link:hover,
+  .others__link:focus-visible {
+    --chip-bg: var(--color-brand);
+    --chip-fg: var(--color-on-dark);
+    transform: translateY(-2px);
+  }
+
+  /* Al pulsar, vuelve a su sitio y se hunde un poco. */
+  .others__link:active {
+    --chip-bg: var(--color-brand-pressed);
+    --chip-border: var(--color-brand-pressed);
+    transform: translateY(0) scale(0.97);
+    transition-duration: 60ms;
+  }
+
+  /* Quien haya pedido menos movimiento se queda solo con el color. */
+  @media (prefers-reduced-motion: reduce) {
+    .others__link:hover,
+    .others__link:focus-visible,
+    .others__link:active {
+      transform: none;
+    }
+  }
+</style>

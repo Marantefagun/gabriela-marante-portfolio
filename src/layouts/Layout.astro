@@ -1,0 +1,172 @@
+---
+import '../styles/global.css';
+import { Font } from 'astro:assets';
+import { ClientRouter } from 'astro:transitions';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /* Ruta de la imagen de previsualización propia de la página. Se pasa
+     como ruta y no como imagen importada a propósito: las redes exigen
+     JPG o PNG y una proporción de 1200x630, así que estas se generan
+     aparte en vez de reutilizar el WebP recortado de la portada. */
+  image?: string;
+}
+
+const {
+  title = 'Gabriela Marante — Product Designer',
+  description = 'Product Designer especializada en interacciones con IA y analítica de datos. Diseño productos que convierten datos complejos en decisiones claras.',
+  image,
+} = Astro.props;
+
+const canonica = new URL(Astro.url.pathname, Astro.site);
+const previsualizacion = new URL(image ?? '/og/portada.jpg', Astro.site);
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="canonical" href={canonica} />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Gabriela Marante" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonica} />
+    <meta property="og:image" content={previsualizacion} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={previsualizacion} />
+    <ClientRouter />
+    <Font cssVariable="--font-plus-jakarta-sans" preload />
+    <Font cssVariable="--font-epilogue" preload />
+  </head>
+  <body>
+    <slot />
+
+    <div class="cursor" data-cursor aria-hidden="true">
+      VIEW
+      <svg viewBox="0 0 12 12" fill="none">
+        <path
+          d="M3 9L9 3M9 3H4.5M9 3V7.5"
+          stroke="currentColor"
+          stroke-width="1.4"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </div>
+  </body>
+
+  <script>
+    /* Un único escuchador delegado: se registra una vez y sigue valiendo
+       tras navegar por cliente, sin acumularse en cada página. */
+    let activo: { bloque: HTMLElement; x: number; y: number } | null = null;
+    let pendiente = 0;
+
+    let cursorPendiente: { x: number; y: number } | null = null;
+
+    /* Se consulta al vuelo, no se guarda: al navegar por cliente el
+       <body> se sustituye y una referencia fija apuntaría a un nodo
+       que ya no está en el documento. */
+    const laEtiqueta = () => document.querySelector<HTMLElement>('[data-cursor]');
+
+    const pintar = () => {
+      pendiente = 0;
+
+      if (activo) {
+        activo.bloque.style.setProperty('--spot-x', `${activo.x}px`);
+        activo.bloque.style.setProperty('--spot-y', `${activo.y}px`);
+      }
+
+      const etiqueta = laEtiqueta();
+      if (etiqueta && cursorPendiente) {
+        etiqueta.style.setProperty('--cursor-x', `${cursorPendiente.x}px`);
+        etiqueta.style.setProperty('--cursor-y', `${cursorPendiente.y}px`);
+        cursorPendiente = null;
+      }
+    };
+
+    const apagar = () => {
+      if (!activo) return;
+      activo.bloque.removeAttribute('data-activo');
+      activo = null;
+    };
+
+    document.addEventListener(
+      'pointermove',
+      (evento) => {
+        /* Solo ratón: en táctil el puntero no "pasa por encima". */
+        if (evento.pointerType !== 'mouse') return;
+
+        const destino = evento.target as HTMLElement | null;
+
+        /* Cursor propio: se enseña solo sobre lo que lleve la marca. */
+        const etiqueta = laEtiqueta();
+        if (etiqueta) {
+          const sobreEnlace = destino?.closest?.('[data-cursor-zona]');
+          if (sobreEnlace) {
+            cursorPendiente = { x: evento.clientX, y: evento.clientY };
+            etiqueta.dataset.visible = '';
+            if (!pendiente) pendiente = requestAnimationFrame(pintar);
+          } else {
+            etiqueta.removeAttribute('data-visible');
+          }
+        }
+
+        const bloque = destino?.closest?.('[data-spot]') as HTMLElement | null;
+
+        if (!bloque) {
+          apagar();
+          return;
+        }
+
+        /* Se lee la geometría aquí y se escribe en el siguiente
+           fotograma: mezclarlas obligaría al navegador a recalcular la
+           maquetación en cada movimiento del ratón. */
+        /* Al saltar de un bloque a otro hay que apagar el anterior:
+           si no, se quedan los dos encendidos a la vez. */
+        if (activo && activo.bloque !== bloque) apagar();
+
+        const caja = bloque.getBoundingClientRect();
+        const x = evento.clientX - caja.left;
+        const y = evento.clientY - caja.top;
+        const entrando = !bloque.hasAttribute('data-activo');
+
+        activo = { bloque, x, y };
+
+        if (entrando) {
+          /* La primera posición se fija sin transición: si no, el foco
+             viajaría hasta el cursor desde donde se quedó la última vez,
+             o desde fuera de la pantalla en el primer estreno. */
+          bloque.dataset.colocando = '';
+          bloque.style.setProperty('--spot-x', `${x}px`);
+          bloque.style.setProperty('--spot-y', `${y}px`);
+          void bloque.offsetWidth;
+          bloque.removeAttribute('data-colocando');
+          bloque.dataset.activo = '';
+          return;
+        }
+
+        if (!pendiente) pendiente = requestAnimationFrame(pintar);
+      },
+      { passive: true },
+    );
+
+    document.addEventListener('pointerleave', () => {
+      apagar();
+      laEtiqueta()?.removeAttribute('data-visible');
+    });
+  </script>
+</html>

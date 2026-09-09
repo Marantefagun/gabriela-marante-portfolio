@@ -1,0 +1,164 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SiteNav from '../components/SiteNav.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import Chip from '../components/Chip.astro';
+
+const empresas = ['El Corte Inglés', 'Meta', 'Factorial', 'Ogilvy', 'Seedtag', 'Freepik'];
+---
+
+<Layout
+  title="About — Gabriela Marante"
+  description="Product Designer con background en DevOps. Traduzco datos complejos en decisiones claras para equipos de producto."
+>
+  <div class="shell" id="top">
+    <SiteNav />
+
+    <main class="main">
+      <div class="spot" data-spot>
+        <h1 class="title">About Me...</h1>
+        <p class="title spot__brillo" aria-hidden="true">About Me...</p>
+      </div>
+
+      <div class="spot" data-spot>
+        <div class="prose">
+          <p>
+            I’m a Product Designer dedicated to translating complex data into clear, actionable
+            insights, and passionate about leveraging AI to design intelligent, user-centered
+            interactions.
+          </p>
+          <p>
+            Combining my background in DevOps with expertise in data analytics and visual
+            communication, I develop solutions that align advanced technology with business
+            objectives, enabling organizations to drive efficiency and make data-driven decisions.
+          </p>
+        </div>
+        <div class="prose spot__brillo" aria-hidden="true">
+          <p>
+            I’m a Product Designer dedicated to translating complex data into clear, actionable
+            insights, and passionate about leveraging AI to design intelligent, user-centered
+            interactions.
+          </p>
+          <p>
+            Combining my background in DevOps with expertise in data analytics and visual
+            communication, I develop solutions that align advanced technology with business
+            objectives, enabling organizations to drive efficiency and make data-driven decisions.
+          </p>
+        </div>
+      </div>
+
+      <section class="worked">
+        <h2 class="worked__title">Companies I’ve worked with...</h2>
+
+        <div class="companies">
+          <ul class="companies__list">
+            {empresas.map((nombre) => <li><Chip label={nombre} /></li>)}
+          </ul>
+          <p class="companies__more">+ more</p>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter
+      role="Product Designer"
+      email="marante.g.fagun@gmail.com"
+      location="Based in Madrid, Spain."
+    />
+  </div>
+</Layout>
+
+<style>
+  /* El cuerpo hereda el mismo ritmo entre bandas que el shell, para que
+     título, texto y bloque de empresas queden a la misma distancia que
+     la nav y el footer. */
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-band);
+  }
+
+  .title {
+    margin: 0;
+    color: var(--color-ink);
+    font-size: var(--text-display);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-default);
+  }
+
+  .prose {
+    max-width: var(--prose-max);
+    color: var(--color-ink);
+    font-size: var(--text-lead);
+    line-height: var(--leading-default);
+  }
+
+  .prose p {
+    margin: 0;
+  }
+
+  /* En Figma los dos párrafos van separados por una línea en blanco.
+     1lh es exactamente eso; el em es el respaldo para navegadores que
+     todavía no entienden la unidad. */
+  .prose p + p {
+    margin-top: 1.25em;
+    margin-top: 1lh;
+  }
+
+  .worked {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .worked__title {
+    margin: 0;
+    color: var(--color-brand);
+    font-family: var(--font-display);
+    font-size: var(--text-section);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-default);
+    text-transform: uppercase;
+  }
+
+  /* En móvil las etiquetas se apilan y "+ more" cae debajo. A partir de
+     tablet comparten fila y "+ more" se alinea con la base. */
+  .companies {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-1);
+  }
+
+  .companies__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .companies__more {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: var(--text-body);
+  }
+
+  @media (min-width: 768px) {
+    .companies {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: var(--space-2);
+    }
+
+    .companies__list {
+      gap: 10px;
+    }
+  }
+
+  /* Ver nota en Hero.astro: el color va aquí por especificidad. */
+  .spot__brillo {
+    color: var(--color-spot);
+  }
+</style>

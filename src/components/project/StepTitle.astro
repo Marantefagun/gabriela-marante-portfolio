@@ -1,0 +1,42 @@
+---
+/* Rótulo de paso de la sección "Solution": círculo gris numerado
+   seguido del nombre del paso. */
+interface Props {
+  step: number;
+  title: string;
+}
+
+const { step, title } = Astro.props;
+---
+
+<h3 class="step">
+  <span class="step__number" aria-hidden="true">{step}</span>
+  {title}
+</h3>
+
+<style>
+  .step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-size: var(--text-lead);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-default);
+  }
+
+  .step__number {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: var(--size-step);
+    height: var(--size-step);
+    border-radius: 50%;
+    background-color: #ededed;
+    color: var(--color-ink);
+    font-size: var(--text-body);
+    font-weight: var(--weight-semibold);
+  }
+</style>

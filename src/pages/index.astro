@@ -1,17 +1,125 @@
 ---
+import Layout from '../layouts/Layout.astro';
+import SiteNav from '../components/SiteNav.astro';
+import Hero from '../components/Hero.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import BackToTop from '../components/BackToTop.astro';
 
+import graphext1 from '../assets/projects/graphext-1.webp';
+import graphext2 from '../assets/projects/graphext-2.webp';
+import serinaOrb from '../assets/projects/serina-orb.webp';
+import nuba from '../assets/projects/nuba.webp';
+import bubblaOppo from '../assets/projects/bubbla-oppo.webp';
+import ifDesignAward from '../assets/projects/if-design-award.webp';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout>
+  <div class="shell" id="top">
+    <SiteNav />
+
+    <Hero
+      headline="Hi! I’m Gaby, a Product Designer passionate about AI Interactions & Data Analytics."
+      lead="I design data-driven products that simplify complex information. With a background in DevOps, I help businesses make smarter decisions through design."
+    />
+
+    <div class="projects" id="projects">
+      <section class="group">
+        <h2 class="group__title">Data Analysis Use Cases in Graphext</h2>
+
+        <div class="grid">
+          <ProjectCard
+            image={graphext1}
+            alt="Portátil mostrando un panel de Graphext con flujos de integración de datos."
+            title="Data Integration Flows"
+            slug="data-integration-flows"
+          />
+          <ProjectCard
+            image={graphext2}
+            alt="Portátil sobre un escritorio con un cuadro de mando de métricas en Graphext."
+            title="AI for Creating Metrics"
+            slug="ai-for-creating-metrics"
+          />
+        </div>
+      </section>
+
+      <section class="group">
+        <h2 class="group__title">Data &amp; AI projects</h2>
+
+        <ProjectCard
+          image={serinaOrb}
+          alt="Persona con unas gafas de realidad virtual en un entorno clínico, usando Serina Orb."
+          title="Serina Orb"
+            slug="serina-orb"
+          subtitle="(VR for healthcare meditation)"
+          variant="feature"
+          badge={ifDesignAward}
+          badgeAlt="iF Design Award 2023"
+        />
+
+        <div class="grid">
+          <ProjectCard
+            image={nuba}
+            alt="Profesional sanitario sosteniendo una tableta con el panel de Nuba."
+            title="Nuba"
+            slug="nuba"
+            subtitle="(AI assistant & data management)"
+          />
+          <ProjectCard
+            image={bubblaOppo}
+            alt="Dos móviles plegables de OPPO mostrando la aplicación Bubbla."
+            title="BUBBLA x OPPO"
+            slug="bubbla-x-oppo"
+            subtitle="(Generative environmental data)"
+            variant="tall"
+          />
+        </div>
+      </section>
+    </div>
+
+    <div class="page__end">
+      <BackToTop />
+      <SiteFooter
+        role="Product Designer"
+        email="marante.g.fagun@gmail.com"
+        location="Based in Madrid, Spain."
+      />
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .projects {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-section);
+  }
+
+  .group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .group__title {
+    margin: 0;
+    color: var(--color-brand);
+    font-family: var(--font-display);
+    font-size: var(--text-section);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-default);
+    text-transform: uppercase;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(var(--layout-columns), minmax(0, 1fr));
+    gap: var(--layout-gutter);
+  }
+
+  /* Ancla del botón "subir", que va fuera de flujo sobre el footer y,
+     como él, se alinea con el borde de la pantalla. */
+  .page__end {
+    position: relative;
+  }
+</style>
